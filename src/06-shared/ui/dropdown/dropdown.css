@@ -1,0 +1,18 @@
+.dropdown {
+  position: relative;
+}
+
+.dropdown__content {
+  position: absolute;
+  display: flex;
+  top: 50px;
+  right: 10px;
+  flex-direction: column;
+  padding: 12px;
+  width: 200px;
+  background: var(--neutral-800);
+  border-radius: 8px;
+  border: 1px solid var(--neutral-600);
+  z-index: 999;
+  gap: 7px;
+}
