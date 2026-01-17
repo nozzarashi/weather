@@ -1,0 +1,21 @@
+.detail-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  background-color: var(--neutral-800);
+  padding: 26px 20px;
+  border-radius: 8px;
+  gap: 24px;
+}
+
+.detail-card__title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--neutral-300);
+}
+
+.detail-card__value {
+  font-size: 26px;
+  font-weight: 500;
+}

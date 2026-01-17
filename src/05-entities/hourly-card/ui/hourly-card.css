@@ -1,0 +1,29 @@
+.hourly-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 14px;
+  background-color: var(--neutral-700);
+  border-radius: 12px;
+  border: 1px solid var(--neutral-300-transp);
+}
+
+.hourly-card__icon {
+  width: 60px;
+  height: 56px;
+}
+
+.hourly-card__temp {
+  font-weight: 500;
+}
+
+.hourly-card__left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hourly-card__time {
+  font-size: 18px;
+  font-weight: 600;
+}

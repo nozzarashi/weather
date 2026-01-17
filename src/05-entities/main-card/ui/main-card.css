@@ -1,0 +1,45 @@
+.main-card__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  background: url('assets/icons/bg-today-large.svg') center/cover no-repeat;
+  border-radius: 18px;
+  padding: 74px 12px;
+}
+
+.main-card {
+  display: flex;
+  align-items: center;
+}
+
+.main-card__block {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px;
+
+  &:first-child {
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
+.main-card__icon {
+  width: 120px;
+  height: 115px;
+}
+
+.main-card__title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.main-card__temperature {
+  font-size: 64px;
+  font-weight: 700;
+}
+
+.main-card__date {
+  font-weight: 500;
+}
