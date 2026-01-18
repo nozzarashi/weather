@@ -1,0 +1,25 @@
+.home__forecast {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.home__hero {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 28px;
+}
+
+.home__hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  min-width: 0;
+}
+
+.home__title {
+  font-size: 44px;
+  margin: 24px 0 34px;
+  font-weight: 600;
+}
