@@ -41,8 +41,6 @@ A complete implementation of a weather dashboard built with Feature-Sliced Desig
 - **Typography:** Montserrat font integration with a structured CSS variable system.
 - **Responsive Design:** Basic mobile and tablet layout optimization.
 
----
-
 ## [Unreleased]
 
 ### 🎯 Planned Roadmap
@@ -69,7 +67,7 @@ A complete implementation of a weather dashboard built with Feature-Sliced Desig
 2. **i18n:** Localization of the interface into Russian.
 3. **Testing:**
 
-================================
+---
 
 # Changelog (RU)
 
