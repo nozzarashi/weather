@@ -6,10 +6,10 @@
 
 ### Desktop
 
-![Desktop-Main](.assets/screenshots/desktop-main.png)
-![Desktop-Metrics](.assets/screenshots/desktop-metrics.png)
-![Desktop-Dropdown-State](.assets/screenshots/desktop-dropdown-state.png)
-![Desktop-Loading-State](.assets/screenshots/desktop-loading-state.png)
+![Desktop-Main](./assets/screenshots/desktop-main.png)
+![Desktop-Metrics](./assets/screenshots/desktop-metrics.png)
+![Desktop-Dropdown-State](./assets/screenshots/desktop-dropdown-state.png)
+![Desktop-Loading-State](./assets/screenshots/desktop-loading-state.png)
 
 ## 🛠️ Технологический стек
 
