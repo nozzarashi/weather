@@ -1,15 +1,13 @@
 import './hourly-forecast.css';
+import { useEffect, useMemo, useRef } from 'react';
+
 import { SkeletonOverlay } from '@/06-shared/ui';
 
 import { HourlyCard } from '@/05-entities/hourly-card';
-import { ChangeWeekday } from '@/04-features/change-weekday';
-import { useGetWeatherForecast } from '@/04-features/search-city/api/getWeatherForecast';
-import { TEMP_UNIT_MAPPING } from '@/06-shared/constants';
-import { useMetricsStore } from '@/04-features/change-metrics/model/metrics-store';
-import { useEffect, useMemo, useRef } from 'react';
-import { useWeekdayStore, type Weekday } from '@/04-features/change-weekday/model/weekday-store';
-import { ICON_CODES } from '@/06-shared/constants';
-
+import { ChangeWeekday, useWeekdayStore, type Weekday } from '@/04-features/change-weekday';
+import { useGetWeatherForecast } from '@/04-features/search-city';
+import { useMetricsStore } from '@/04-features/change-metrics';
+import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants';
 export function HourlyForecast({ className }: { className: string }) {
   interface HourlyForecast {
     time: string;

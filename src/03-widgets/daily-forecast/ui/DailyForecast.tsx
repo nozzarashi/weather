@@ -1,9 +1,8 @@
 import { DailyCard } from '@/05-entities/daily-card';
 import './daily-forecast.css';
-import { useGetWeatherForecast } from '@/04-features/search-city/api/getWeatherForecast';
-import { TEMP_UNIT_MAPPING } from '@/06-shared/constants';
-import { useMetricsStore } from '@/04-features/change-metrics/model/metrics-store';
-import { ICON_CODES } from '@/06-shared/constants';
+import { useGetWeatherForecast } from '@/04-features/search-city';
+import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants';
+import { useMetricsStore } from '@/04-features/change-metrics';
 
 export function DailyForecast({ className }: { className?: string }) {
   const rootClassName = `daily-forecast ${className || ''}`.trim();
