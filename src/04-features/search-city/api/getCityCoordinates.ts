@@ -16,7 +16,20 @@ interface CityGeocodingResponse {
 }
 
 async function getCityCoordinates(cityName: string, signal: AbortSignal): Promise<CityGeocodingResponse> {
-  const url = `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=5&language=en&format=json`;
+  const url = new URL('https://geocoding-api.open-meteo.com/v1/search');
+  const CITIES_NUMBER_SHOWN = 5;
+
+  const params: Record<string, string> = {
+    name: cityName,
+    count: String(CITIES_NUMBER_SHOWN),
+    language: 'en',
+    format: 'json',
+  };
+
+  Object.entries(params).forEach(([key, value]) => {
+    url.searchParams.set(key, value);
+  });
+
   const response = await fetch(url, { signal });
 
   if (!response.ok) throw new Error('Ошибка поиска города');

@@ -3,7 +3,23 @@ import { useSelectedCityStore } from '../model/selected-city-store';
 import { useMetricsStore } from '@/04-features/change-metrics';
 
 async function getWeatherForecast(lat: number, lng: number, tempUnit: string, windUnit: string, precipUnit: string) {
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,weather_code,wind_speed_10m,apparent_temperature,relative_humidity_2m,precipitation&timezone=auto&wind_speed_unit=${windUnit}&temperature_unit=${tempUnit}&precipitation_unit=${precipUnit}`;
+  const url = new URL('https://api.open-meteo.com/v1/forecast');
+
+  const params: Record<string, string> = {
+    latitude: String(lat),
+    longitude: String(lng),
+    wind_speed_unit: windUnit,
+    temperature_unit: tempUnit,
+    precipitation_unit: precipUnit,
+    daily: 'weather_code,temperature_2m_max,temperature_2m_min',
+    hourly: 'temperature_2m,weather_code',
+    current: 'temperature_2m,weather_code,wind_speed_10m,apparent_temperature,relative_humidity_2m,precipitation',
+    timezone: 'auto',
+  };
+
+  Object.entries(params).forEach(([key, value]) => {
+    url.searchParams.set(key, value);
+  });
 
   const response = await fetch(url);
 
