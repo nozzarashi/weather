@@ -1,16 +1,17 @@
-import { Input } from '@/06-shared/ui';
-import { useEffect, useRef, useState } from 'react';
-import { useGetCityCoordinates, type City } from '../api/getCityCoordinates';
-import { useSelectedCityStore } from '../model/selected-city-store';
-
 import './search-city.css';
 import searchIcon from '@/../assets/icons/icon-search.svg';
+
+import { useEffect, useRef, useState } from 'react';
+import { Input } from '@/06-shared/ui';
+import { useDebounce } from '@/06-shared/lib';
+import { useGetCityCoordinates, type City } from '../api/getCityCoordinates';
 import { useGetWeatherForecast } from '../api/getWeatherForecast';
+
+import { useSelectedCityStore } from '../model/selected-city-store';
 
 import { ClipLoader } from 'react-spinners';
 import { useQueryClient } from '@tanstack/react-query';
-import { useMetricsStore } from '@/04-features/change-metrics/model/metrics-store';
-import { useDebounce } from '@/06-shared/lib';
+import { useMetricsStore } from '@/04-features/change-metrics';
 
 interface RecentlySearchedCity {
   name: string;

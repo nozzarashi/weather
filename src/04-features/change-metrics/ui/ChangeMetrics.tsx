@@ -1,5 +1,4 @@
-import { Dropdown, DropdownGroup, DropdownItem } from '@/06-shared/ui';
-import { Button } from '@/06-shared/ui';
+import { Dropdown, DropdownGroup, DropdownItem, Button } from '@/06-shared/ui';
 
 import './change-metrics.css';
 
@@ -40,7 +39,7 @@ export function ChangeMetrics() {
         setWindUnit: state.setWindUnit,
         setPrecipUnit: state.setPrecipUnit,
       };
-    })
+    }),
   );
 
   return (

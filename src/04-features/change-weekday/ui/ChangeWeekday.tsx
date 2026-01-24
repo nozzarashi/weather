@@ -4,7 +4,7 @@ import dropdownIcon from 'assets/icons/icon-dropdown.svg';
 
 import './change-weekday.css';
 import { useMemo, useState } from 'react';
-import { useGetWeatherForecast } from '@/04-features/search-city/api/getWeatherForecast';
+import { useGetWeatherForecast } from '@/04-features/search-city';
 
 export function ChangeWeekday() {
   const weekday = useWeekdayStore((state) => state.weekday);

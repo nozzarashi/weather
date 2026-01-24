@@ -2,12 +2,10 @@ import './current-forecast.css';
 
 import { MainCard } from '@/05-entities/main-card';
 import { DetailCard } from '@/05-entities/detail-card';
-import { useGetWeatherForecast } from '@/04-features/search-city/api/getWeatherForecast';
-import { useSelectedCityStore } from '@/04-features/search-city/model/selected-city-store';
-import { useMetricsStore } from '@/04-features/change-metrics/model/metrics-store';
-import { TEMP_UNIT_MAPPING } from '@/06-shared/constants';
+import { useGetWeatherForecast, useSelectedCityStore } from '@/04-features/search-city';
+import { useMetricsStore } from '@/04-features/change-metrics';
+import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants';
 import { useShallow } from 'zustand/shallow';
-import { ICON_CODES } from '@/06-shared/constants';
 
 export function CurrentForecast({ className }: { className?: string }) {
   const { isPending, data } = useGetWeatherForecast();
@@ -20,7 +18,7 @@ export function CurrentForecast({ className }: { className?: string }) {
       tempUnit: state.tempUnit,
       windUnit: state.windUnit,
       precipUnit: state.precipUnit,
-    }))
+    })),
   );
 
   const currentTemp = ` ${Math.round(currentData?.temperature_2m)}${TEMP_UNIT_MAPPING[tempUnit]}`;
