@@ -10,7 +10,7 @@ import { useGetWeatherForecast } from '../api/getWeatherForecast';
 import { ClipLoader } from 'react-spinners';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMetricsStore } from '@/04-features/change-metrics/model/metrics-store';
-import { useDebounced } from '../lib/useDebounced';
+import { useDebounce } from '@/06-shared/lib';
 
 interface RecentlySearchedCity {
   name: string;
@@ -31,7 +31,7 @@ export function SearchCity({ className }: { className?: string }) {
   const isUserSelectedCity = useRef(false);
 
   const DEBOUNCE_DELAY = 300;
-  const debouncedValue = useDebounced(inputValue, DEBOUNCE_DELAY);
+  const debouncedValue = useDebounce(inputValue, DEBOUNCE_DELAY);
   const setCityInfo = useSelectedCityStore((state) => state.setCityInfo);
   const cityName = useSelectedCityStore((state) => state.cityName);
   const { data } = useGetCityCoordinates(debouncedValue);
