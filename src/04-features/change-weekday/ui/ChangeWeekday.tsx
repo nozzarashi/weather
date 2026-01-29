@@ -22,10 +22,9 @@ export function ChangeWeekday() {
 
   return (
     <Dropdown
+      onClose={() => setIsOpened(false)}
       isOpened={isOpened}
-      onClick={() => {
-        setIsOpened(!isOpened);
-      }}
+      onToggle={() => setIsOpened(!isOpened)}
       trigger={<Button text={weekday} afterIcon={<img src={dropdownIcon} />} />}
     >
       {Array.from(weekdays).map((day) => (

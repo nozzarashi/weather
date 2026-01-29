@@ -44,9 +44,8 @@ export function ChangeMetrics() {
 
   return (
     <Dropdown
-      onClick={() => {
-        setIsOpened(!isOpened);
-      }}
+      onClose={() => setIsOpened(false)}
+      onToggle={() => setIsOpened(!isOpened)}
       isOpened={isOpened}
       trigger={<Button beforeIcon={<img src={iconUnits} />} afterIcon={<img src={dropdownIcon} />} text="Units" />}
     >

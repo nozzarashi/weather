@@ -54,7 +54,14 @@ export function SearchCity({ className }: { className?: string }) {
       className={rootClassName}
     >
       <div className="search-city__input-wrapper">
-        <div ref={containerRef} className="search-city__input-container">
+        <div
+          tabIndex={0}
+          onBlur={(event) => {
+            if (!containerRef.current?.contains(event.relatedTarget)) setIsFocused(false);
+          }}
+          ref={containerRef}
+          className="search-city__input-container"
+        >
           <Input
             value={inputValue}
             onChange={(event) => {
