@@ -1,15 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-
-export interface City {
-  name: string;
-  country: string;
-  admin1: string;
-  admin2: string;
-  id: number;
-  latitude: number;
-  longitude: number;
-  timezone: string;
-}
+import type { City } from '../model/city';
 
 interface CityGeocodingResponse {
   results?: City[];
