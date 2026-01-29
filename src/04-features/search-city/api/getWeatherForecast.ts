@@ -2,12 +2,18 @@ import { useQuery } from '@tanstack/react-query';
 import { useSelectedCityStore } from '../model/selected-city-store';
 import { useMetricsStore } from '@/04-features/change-metrics';
 
-async function getWeatherForecast(lat: number, lng: number, tempUnit: string, windUnit: string, precipUnit: string) {
+async function getWeatherForecast(
+  latitude: number,
+  longitude: number,
+  tempUnit: string,
+  windUnit: string,
+  precipUnit: string,
+) {
   const url = new URL('https://api.open-meteo.com/v1/forecast');
 
   const params: Record<string, string> = {
-    latitude: String(lat),
-    longitude: String(lng),
+    latitude: String(latitude),
+    longitude: String(longitude),
     wind_speed_unit: windUnit,
     temperature_unit: tempUnit,
     precipitation_unit: precipUnit,
@@ -30,13 +36,13 @@ async function getWeatherForecast(lat: number, lng: number, tempUnit: string, wi
 }
 
 export function useGetWeatherForecast() {
-  const lat = useSelectedCityStore((state) => state.lat);
-  const lng = useSelectedCityStore((state) => state.lng);
+  const latitude = useSelectedCityStore((state) => state.latitude);
+  const longitude = useSelectedCityStore((state) => state.longitude);
   const { tempUnit, windUnit, precipUnit } = useMetricsStore();
 
   return useQuery({
-    queryKey: ['city', 'forecast', lat, lng, tempUnit, windUnit, precipUnit],
-    queryFn: () => getWeatherForecast(lat, lng, tempUnit, windUnit, precipUnit),
-    enabled: Boolean(lat) && Boolean(lng),
+    queryKey: ['city', 'forecast', latitude, longitude, tempUnit, windUnit, precipUnit],
+    queryFn: () => getWeatherForecast(latitude, longitude, tempUnit, windUnit, precipUnit),
+    enabled: Boolean(latitude) && Boolean(longitude),
   });
 }
