@@ -8,13 +8,15 @@ import { ChangeWeekday, useWeekdayStore, type Weekday } from '@/04-features/chan
 import { useGetWeatherForecast } from '@/04-features/search-city';
 import { useMetricsStore } from '@/04-features/change-metrics';
 import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants';
-export function HourlyForecast({ className }: { className: string }) {
-  interface HourlyForecast {
-    time: string;
-    temperature: number;
-    weatherCode: number;
-  }
+import { formatterByHours, formatterByWeek } from '@/06-shared/lib';
 
+interface HourlyForecast {
+  time: string;
+  temperature: number;
+  weatherCode: number;
+}
+
+export function HourlyForecast({ className }: { className: string }) {
   const rootClassName = `hourly-forecast ${className || ''} skeleton-container`.trim();
   const tempUnit = useMetricsStore((state) => state.tempUnit);
 
@@ -25,19 +27,16 @@ export function HourlyForecast({ className }: { className: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
   const weather = useMemo(() => {
-    const formatterByWeek = new Intl.DateTimeFormat('en-US', { weekday: 'long' });
-    const formatterByHours = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' });
-
     const result: HourlyForecast[] = [];
 
     hourlyData?.time?.forEach((time: string, index: number) => {
-      const formattedWeekday = formatterByWeek.format(new Date(time));
+      const formattedByWeekday = formatterByWeek.format(new Date(time));
 
-      if (formattedWeekday === currentWeekday && Date.now() < new Date(time).getTime()) {
-        const formattedTimeByHours = formatterByHours.format(new Date(time));
+      if (formattedByWeekday === currentWeekday && Date.now() < new Date(time).getTime()) {
+        const formattedByHours = formatterByHours.format(new Date(time));
 
         result.push({
-          time: formattedTimeByHours,
+          time: formattedByHours,
           temperature: hourlyData.temperature_2m[index],
           weatherCode: hourlyData.weather_code[index],
         });

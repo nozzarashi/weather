@@ -5,6 +5,7 @@ import dropdownIcon from 'assets/icons/icon-dropdown.svg';
 import './change-weekday.css';
 import { useMemo, useState } from 'react';
 import { useGetWeatherForecast } from '@/04-features/search-city';
+import { formatterByWeek } from '@/06-shared/lib';
 
 export function ChangeWeekday() {
   const weekday = useWeekdayStore((state) => state.weekday);
@@ -13,8 +14,6 @@ export function ChangeWeekday() {
 
   const weekdays: Set<Weekday> = useMemo(() => {
     if (!data?.hourly?.time) return new Set<Weekday>();
-
-    const formatterByWeek = Intl.DateTimeFormat('en-US', { weekday: 'long' });
     return new Set(data?.hourly.time.map((el: string) => formatterByWeek.format(new Date(el)) as Weekday));
   }, [data]);
 
