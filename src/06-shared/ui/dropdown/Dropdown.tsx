@@ -1,32 +1,45 @@
-import { type ReactNode, useRef } from 'react';
+import { type ReactNode, useRef, useState } from 'react';
 
 import './dropdown.css';
 
 interface DropdownProps {
-  onToggle: () => void;
-  onClose: () => void;
+  onOpenChange?: (set: React.SetStateAction<boolean>) => void;
   trigger: ReactNode;
-  isOpened: boolean;
+  isOpened?: boolean;
   children: ReactNode;
 }
 
-export function Dropdown({ onToggle, onClose, trigger, isOpened, children }: DropdownProps) {
+export function Dropdown({ isOpened, onOpenChange, trigger, children }: DropdownProps) {
+  const [internalIsOpened, setInternalIsOpened] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const isControlled = isOpened !== undefined;
+  const actualOpenedState = isControlled ? isOpened : internalIsOpened;
+
+  const handleClose = () => {
+    if (isControlled) onOpenChange?.(false);
+    else setInternalIsOpened(false);
+  };
+
+  const handleToggle = () => {
+    if (isControlled) onOpenChange?.(!isOpened);
+    else setInternalIsOpened(!internalIsOpened);
+  };
 
   return (
     <div
       onKeyDown={(event) => {
-        if (event.key === 'Escape') onClose();
+        if (event.key === 'Escape') handleClose();
       }}
       tabIndex={0}
       onBlur={(event) => {
-        if (!dropdownRef.current?.contains(event.relatedTarget)) onClose();
+        if (!dropdownRef.current?.contains(event.relatedTarget)) handleClose();
       }}
       ref={dropdownRef}
       className="dropdown"
     >
-      <div onClick={onToggle}>{trigger}</div>
-      {isOpened && <div className="dropdown__content">{children}</div>}
+      <div onClick={handleToggle}>{trigger}</div>
+      {actualOpenedState && <div className="dropdown__content">{children}</div>}
     </div>
   );
 }

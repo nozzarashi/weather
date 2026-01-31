@@ -7,7 +7,7 @@ import rain from 'assets/images/icon-rain.webp';
 import snow from 'assets/images/icon-snow.webp';
 import storm from 'assets/images/icon-storm.webp';
 
-export const ICON_CODES: Record<number, string> = {
+export const ICON_CODES: Record<number, string> = Object.freeze({
   0: sunny,
   1: sunny,
 
@@ -42,4 +42,4 @@ export const ICON_CODES: Record<number, string> = {
   95: storm,
   96: storm,
   99: storm,
-} as const;
+} as const);

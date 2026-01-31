@@ -28,7 +28,7 @@ export function SearchCity({ className }: { className?: string }) {
 
   const cityName = useSelectedCityStore((state) => state.cityName);
   const setCityInfo = useSelectedCityStore((state) => state.setCityInfo);
-  const { data } = useGetCityCoordinates(debouncedValue);
+  const { data: citiesData } = useGetCityCoordinates(debouncedValue);
 
   function handleCitySelect(city: City) {
     const { tempUnit, windUnit, precipUnit } = useMetricsStore.getState();
@@ -83,9 +83,9 @@ export function SearchCity({ className }: { className?: string }) {
                   <ClipLoader size={18} color="#aeaeb7" />
                   <span>Search in Progress</span>
                 </div>
-              ) : data?.results ? (
+              ) : citiesData?.results ? (
                 <ul className="search-city__results-list">
-                  {data?.results.map((city) => {
+                  {citiesData?.results.map((city) => {
                     return (
                       <li
                         onClick={(e) => {

@@ -9,22 +9,21 @@ import { useGetWeatherForecast } from '@/04-features/search-city';
 export function ChangeWeekday() {
   const weekday = useWeekdayStore((state) => state.weekday);
   const setWeekday = useWeekdayStore((state) => state.setWeekday);
-  const { data } = useGetWeatherForecast();
+  const { data: forecastData } = useGetWeatherForecast();
 
   const weekdays: Set<Weekday> = useMemo(() => {
-    if (!data?.hourly?.time) return new Set<Weekday>();
+    if (!forecastData?.hourly?.time) return new Set<Weekday>();
 
     const formatterByWeek = Intl.DateTimeFormat('en-US', { weekday: 'long' });
-    return new Set(data?.hourly.time.map((el: string) => formatterByWeek.format(new Date(el)) as Weekday));
-  }, [data]);
+    return new Set(forecastData?.hourly.time.map((el: string) => formatterByWeek.format(new Date(el)) as Weekday));
+  }, [forecastData]);
 
   const [isOpened, setIsOpened] = useState(false);
 
   return (
     <Dropdown
-      onClose={() => setIsOpened(false)}
+      onOpenChange={setIsOpened}
       isOpened={isOpened}
-      onToggle={() => setIsOpened(!isOpened)}
       trigger={<Button text={weekday} afterIcon={<img src={dropdownIcon} />} />}
     >
       {Array.from(weekdays).map((day) => (
