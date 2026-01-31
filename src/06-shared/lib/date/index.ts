@@ -1,2 +1,2 @@
-export { formatterByWeek } from './formatterByWeek.ts';
-export { formatterByHours } from './formatterByHours.ts';
+export { weekdayFormatter } from './weekdayFormatter.ts';
+export { timeFormatter } from './timeFormatter.ts';

@@ -3,14 +3,14 @@ import './daily-forecast.css';
 import { useGetWeatherForecast } from '@/04-features/search-city';
 import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants';
 import { useMetricsStore } from '@/04-features/change-metrics';
-import { formatterByWeek } from '@/06-shared/lib';
+import { weekdayFormatter } from '@/06-shared/lib';
 
 export function DailyForecast({ className }: { className?: string }) {
   const rootClassName = `daily-forecast ${className || ''}`.trim();
   const tempUnit = useMetricsStore((state) => state.tempUnit);
 
-  const { isPending, data } = useGetWeatherForecast();
-  const dailyData = data?.daily;
+  const { isPending, data: forecast } = useGetWeatherForecast();
+  const dailyData = forecast?.daily;
 
   return (
     <div className={rootClassName}>
@@ -25,7 +25,7 @@ export function DailyForecast({ className }: { className?: string }) {
                 key={dailyData.time[index]}
                 isLoading={isPending}
                 className="daily-forecast__card"
-                weekday={formatterByWeek.format(new Date(dailyData?.time[index]))}
+                weekday={weekdayFormatter('short').format(new Date(dailyData?.time[index]))}
                 iconSrc={ICON_CODES[dailyData.weather_code[index]]}
                 maxTemp={`${Math.round(el)}${TEMP_UNIT_MAPPING[tempUnit]}`}
                 minTemp={`${Math.round(dailyData?.temperature_2m_min[index])}${TEMP_UNIT_MAPPING[tempUnit]}`}
