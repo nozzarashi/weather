@@ -6,7 +6,6 @@ import iconUnits from 'assets/icons/icon-units.svg';
 import dropdownIcon from 'assets/icons/icon-dropdown.svg';
 import checkmarkIcon from 'assets/icons/icon-checkmark.svg';
 
-import { useState } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { useMetricsStore } from '../model/metrics-store';
 
@@ -26,8 +25,6 @@ const PRECIP_UNITS = {
 } as const;
 
 export function ChangeMetrics() {
-  const [isOpened, setIsOpened] = useState(false);
-
   const { tempUnit, windUnit, precipUnit, setTempUnit, setWindUnit, setPrecipUnit } = useMetricsStore(
     useShallow((state) => {
       return {
@@ -44,10 +41,6 @@ export function ChangeMetrics() {
 
   return (
     <Dropdown
-      onClick={() => {
-        setIsOpened(!isOpened);
-      }}
-      isOpened={isOpened}
       trigger={<Button beforeIcon={<img src={iconUnits} />} afterIcon={<img src={dropdownIcon} />} text="Units" />}
     >
       <span className="metrics-title">Switch to Imperial</span>

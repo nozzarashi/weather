@@ -16,18 +16,6 @@ export function useSearchInput() {
   const isUserSelectedCity = useRef(false);
 
   useEffect(() => {
-    function handleClick(event: MouseEvent) {
-      if (event.target instanceof Node && containerRef.current && !containerRef.current.contains(event.target)) {
-        setIsFocused(false);
-      }
-    }
-
-    document.addEventListener('click', handleClick);
-
-    return () => document.removeEventListener('click', handleClick);
-  }, []);
-
-  useEffect(() => {
     if (prevIsPending.current && isPending === false && isUserSelectedCity.current) {
       setIsFocused(false);
       setInputValue('');

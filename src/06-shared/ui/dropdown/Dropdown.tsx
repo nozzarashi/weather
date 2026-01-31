@@ -1,45 +1,45 @@
-import { type ReactNode, useEffect, useRef } from 'react';
+import { type ReactNode, useRef, useState } from 'react';
 
 import './dropdown.css';
 
 interface DropdownProps {
-  onClick: () => void;
+  onOpenChange?: (set: React.SetStateAction<boolean>) => void;
   trigger: ReactNode;
-  isOpened: boolean;
+  isOpened?: boolean;
   children: ReactNode;
 }
 
-export function Dropdown({ onClick, trigger, isOpened, children }: DropdownProps) {
+export function Dropdown({ isOpened, onOpenChange, trigger, children }: DropdownProps) {
+  const [internalIsOpened, setInternalIsOpened] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!isOpened) return;
+  const isControlled = isOpened !== undefined;
+  const actualOpenedState = isControlled ? isOpened : internalIsOpened;
 
-    function handleDocumentClick(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        onClick();
-      }
-    }
+  const handleClose = () => {
+    if (isControlled) onOpenChange?.(false);
+    else setInternalIsOpened(false);
+  };
 
-    function handleDocumentKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') {
-        onClick();
-      }
-    }
-
-    document.addEventListener('click', handleDocumentClick);
-    document.addEventListener('keydown', handleDocumentKey);
-
-    return () => {
-      document.removeEventListener('click', handleDocumentClick);
-      document.removeEventListener('keydown', handleDocumentKey);
-    };
-  });
+  const handleToggle = () => {
+    if (isControlled) onOpenChange?.(!isOpened);
+    else setInternalIsOpened(!internalIsOpened);
+  };
 
   return (
-    <div ref={dropdownRef} className="dropdown">
-      <div onClick={onClick}>{trigger}</div>
-      {isOpened && <div className="dropdown__content">{children}</div>}
+    <div
+      onKeyDown={(event) => {
+        if (event.key === 'Escape') handleClose();
+      }}
+      tabIndex={0}
+      onBlur={(event) => {
+        if (!dropdownRef.current?.contains(event.relatedTarget)) handleClose();
+      }}
+      ref={dropdownRef}
+      className="dropdown"
+    >
+      <div onClick={handleToggle}>{trigger}</div>
+      {actualOpenedState && <div className="dropdown__content">{children}</div>}
     </div>
   );
 }
