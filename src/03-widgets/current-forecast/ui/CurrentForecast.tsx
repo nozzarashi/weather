@@ -8,8 +8,8 @@ import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants';
 import { useShallow } from 'zustand/shallow';
 
 export function CurrentForecast({ className }: { className?: string }) {
-  const { isPending, data } = useGetWeatherForecast();
-  const currentData = data?.current;
+  const { isPending, data: forecast } = useGetWeatherForecast();
+  const currentData = forecast?.current;
 
   const cityName = useSelectedCityStore((state) => state.cityName);
 
@@ -38,7 +38,7 @@ export function CurrentForecast({ className }: { className?: string }) {
           month: 'short',
           day: 'numeric',
           year: 'numeric',
-        }).format(data?.time)}
+        }).format(forecast?.time)}
         className="current-forecast__main-card"
         iconSrc={icon}
         temperature={currentTemp}

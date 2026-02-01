@@ -8,7 +8,7 @@ import { ChangeWeekday, useWeekdayStore, type Weekday } from '@/04-features/chan
 import { useGetWeatherForecast } from '@/04-features/search-city';
 import { useMetricsStore } from '@/04-features/change-metrics';
 import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants';
-import { formatterByHours, formatterByWeek } from '@/06-shared/lib';
+import { timeFormatter, weekdayFormatter } from '@/06-shared/lib';
 
 interface HourlyForecast {
   time: string;
@@ -20,8 +20,8 @@ export function HourlyForecast({ className }: { className: string }) {
   const rootClassName = `hourly-forecast ${className || ''} skeleton-container`.trim();
   const tempUnit = useMetricsStore((state) => state.tempUnit);
 
-  const { isPending, data } = useGetWeatherForecast();
-  const hourlyData = data?.hourly;
+  const { isPending, data: forecast } = useGetWeatherForecast();
+  const hourlyData = forecast?.hourly;
 
   const { setWeekday, weekday: currentWeekday } = useWeekdayStore();
   const ref = useRef<HTMLDivElement>(null);
@@ -30,10 +30,10 @@ export function HourlyForecast({ className }: { className: string }) {
     const result: HourlyForecast[] = [];
 
     hourlyData?.time?.forEach((time: string, index: number) => {
-      const formattedByWeekday = formatterByWeek.format(new Date(time));
+      const formattedByWeekday = weekdayFormatter('long').format(new Date(time));
 
       if (formattedByWeekday === currentWeekday && Date.now() < new Date(time).getTime()) {
-        const formattedByHours = formatterByHours.format(new Date(time));
+        const formattedByHours = timeFormatter.format(new Date(time));
 
         result.push({
           time: formattedByHours,
@@ -64,7 +64,7 @@ export function HourlyForecast({ className }: { className: string }) {
 
       <div className="hourly-forecast__header">
         <h3 className="hourly-forecast-title">Hourly Forecast</h3>
-        {data && <ChangeWeekday />}
+        {forecast && <ChangeWeekday />}
       </div>
       <div ref={ref} className="hourly-forecast__body">
         {weather?.map((el: HourlyForecast) => (
