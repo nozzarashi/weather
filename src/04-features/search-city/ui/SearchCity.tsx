@@ -24,6 +24,7 @@ export function SearchCity({ className }: { className?: string }) {
     isPending,
     isUserSelectedCity,
   } = useSearchInput();
+
   const { addSearchedCities, searchedCities } = useRecentlySearchedCities();
 
   const cityName = useSelectedCityStore((state) => state.cityName);
@@ -43,6 +44,7 @@ export function SearchCity({ className }: { className?: string }) {
       setInputValue('');
       isUserSelectedCity.current = false;
     }
+
     addSearchedCities(city);
   }
 
@@ -88,8 +90,8 @@ export function SearchCity({ className }: { className?: string }) {
                   {cities?.results.map((city) => {
                     return (
                       <li
-                        onClick={(e) => {
-                          e.stopPropagation();
+                        onClick={(event) => {
+                          event.stopPropagation();
                           handleCitySelect(city);
                         }}
                         className="search-city__results-item"

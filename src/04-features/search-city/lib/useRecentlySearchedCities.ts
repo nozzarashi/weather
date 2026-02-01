@@ -5,8 +5,8 @@ export function useRecentlySearchedCities() {
   const [searchedCities, setSearchedCities] = useState<City[]>([]);
 
   const addSearchedCities = (city: City) => {
-    setSearchedCities((prev) => {
-      const filtered = prev.filter((c) => c.id !== city.id);
+    setSearchedCities((prevCities) => {
+      const filteredCities = prevCities.filter((prevCity) => prevCity.id !== city.id);
 
       return [
         {
@@ -18,7 +18,7 @@ export function useRecentlySearchedCities() {
           admin1: city.admin1,
         },
 
-        ...filtered,
+        ...filteredCities,
       ].slice(0, 5);
     });
   };
