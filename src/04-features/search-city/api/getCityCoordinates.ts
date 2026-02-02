@@ -12,20 +12,18 @@ async function getCityCoordinates(
   const url = new URL('https://geocoding-api.open-meteo.com/v1/search')
   const CITIES_NUMBER_SHOWN = 5
 
-  const params: Record<string, string> = {
+  Object.entries({
     name: cityName,
     count: String(CITIES_NUMBER_SHOWN),
     language: 'en',
     format: 'json',
-  }
-
-  Object.entries(params).forEach(([key, value]) => {
+  }).forEach(([key, value]) => {
     url.searchParams.set(key, value)
   })
 
   const response = await fetch(url, { signal })
 
-  if (!response.ok) throw new Error('Ошибка поиска города')
+  if (!response.ok) throw new Error('ERROR_WHEN_GETTING_CITY_COORDINATES')
 
   return response.json()
 }

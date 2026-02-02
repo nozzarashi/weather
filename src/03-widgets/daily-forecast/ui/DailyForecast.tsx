@@ -5,30 +5,29 @@ import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants'
 import { useMetricsStore } from '@/04-features/change-metrics'
 import { weekdayFormatter } from '@/06-shared/lib'
 
-export function DailyForecast({ className }: { className?: string }) {
-  const rootClassName = `daily-forecast ${className || ''}`.trim()
+export function DailyForecast({ className }: Readonly<{ className?: string }>) {
   const tempUnit = useMetricsStore((state) => state.tempUnit)
 
   const { isPending, data: forecast } = useGetWeatherForecast()
-  const dailyData = forecast?.daily
 
   return (
-    <div className={rootClassName}>
+    <div className={`daily-forecast ${className || ''}`.trim()}>
       {isPending || <h3 className="daily-forecast__title">Daily Forecast</h3>}
       <div className="daily-forecast__body">
         {isPending
           ? Array.from({ length: 7 }, (_, index) => (
               <DailyCard key={index} isLoading={true} maxTemp="" minTemp="" weekday="" />
             ))
-          : dailyData?.temperature_2m_max.map((el: number, index: number) => (
+          : forecast?.daily?.temperature_2m_max.map((item: number, index: number) => (
               <DailyCard
-                key={dailyData.time[index]}
+                // TODO: Не использовать index в качестве ключа
+                key={forecast?.daily.time[index]}
                 isLoading={isPending}
                 className="daily-forecast__card"
-                weekday={weekdayFormatter('short').format(new Date(dailyData?.time[index]))}
-                iconSrc={ICON_CODES[dailyData.weather_code[index]]}
-                maxTemp={`${Math.round(el)}${TEMP_UNIT_MAPPING[tempUnit]}`}
-                minTemp={`${Math.round(dailyData?.temperature_2m_min[index])}${TEMP_UNIT_MAPPING[tempUnit]}`}
+                weekday={weekdayFormatter('short').format(new Date(forecast?.daily?.time[index]))}
+                iconSrc={ICON_CODES[forecast?.daily.weather_code[index]]}
+                maxTemp={`${Math.round(item)}${TEMP_UNIT_MAPPING[tempUnit]}`}
+                minTemp={`${Math.round(forecast?.daily?.temperature_2m_min[index])}${TEMP_UNIT_MAPPING[tempUnit]}`}
               />
             ))}
       </div>

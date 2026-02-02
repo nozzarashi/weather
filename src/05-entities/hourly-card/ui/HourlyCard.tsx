@@ -1,17 +1,18 @@
 import './hourly-card.css'
 
-interface HourlyCardProps {
+export function HourlyCard({
+  className,
+  iconSrc,
+  time,
+  temp,
+}: Readonly<{
   className?: string
   iconSrc: string
   time: string
   temp: string
-}
-
-export function HourlyCard({ className, iconSrc, time, temp }: HourlyCardProps) {
-  const rootClassName = `hourly-card ${className || ''} skeleton-container`.trim()
-
+}>) {
   return (
-    <div className={rootClassName}>
+    <div className={`hourly-card ${className || ''} skeleton-container`.trim()}>
       <div className="hourly-card__left">
         <img className="hourly-card__icon" src={iconSrc} alt="" />
         <span className="hourly-card__time">{time}</span>

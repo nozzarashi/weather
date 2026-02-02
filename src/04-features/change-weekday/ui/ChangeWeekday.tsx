@@ -17,7 +17,7 @@ export function ChangeWeekday() {
 
     return new Set(
       forecast?.hourly.time.map(
-        (el: string) => weekdayFormatter('long').format(new Date(el)) as Weekday,
+        (item: string) => weekdayFormatter('long').format(new Date(item)) as Weekday,
       ),
     )
   }, [forecast])

@@ -7,26 +7,16 @@ import { useMetricsStore } from '@/04-features/change-metrics'
 import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants'
 import { useShallow } from 'zustand/shallow'
 
-export function CurrentForecast({ className }: { className?: string }) {
-  const { isPending, data: forecast } = useGetWeatherForecast()
-  const currentData = forecast?.current
-
+export function CurrentForecast({ className }: Readonly<{ className?: string }>) {
   const cityName = useSelectedCityStore((state) => state.cityName)
-
-  const { tempUnit, windUnit, precipUnit } = useMetricsStore(
+  const { isPending, data: forecast } = useGetWeatherForecast()
+  const { tempUnit, windUnit, precipitationUnit } = useMetricsStore(
     useShallow((state) => ({
       tempUnit: state.tempUnit,
       windUnit: state.windUnit,
-      precipUnit: state.precipUnit,
+      precipitationUnit: state.precipitationUnit,
     })),
   )
-
-  const currentTemp = ` ${Math.round(currentData?.temperature_2m)}${TEMP_UNIT_MAPPING[tempUnit]}`
-  const apparentTemp = `${Math.round(currentData?.apparent_temperature)}${TEMP_UNIT_MAPPING[tempUnit]}`
-  const humidity = `${currentData?.relative_humidity_2m}%`
-  const wind = `${Math.round(currentData?.wind_speed_10m)} ${windUnit}`
-  const precipitation = `${currentData?.precipitation.toFixed(1)} ${precipUnit}`
-  const icon = ICON_CODES[currentData?.weather_code]
 
   return (
     <div className={className}>
@@ -40,36 +30,36 @@ export function CurrentForecast({ className }: { className?: string }) {
           year: 'numeric',
         }).format(forecast?.time)}
         className="current-forecast__main-card"
-        iconSrc={icon}
-        temperature={currentTemp}
+        iconSrc={ICON_CODES[forecast?.current.weather_code]}
+        temperature={`${Math.round(forecast?.current.temperature_2m)}${TEMP_UNIT_MAPPING[tempUnit]}`}
       />
       <div className="current-forecast__details">
         <DetailCard
           isLoading={isPending}
           className="current-forecast__detail-card"
           title="Feels Like"
-          value={apparentTemp}
+          value={`${Math.round(forecast?.current.apparent_temperature)}${TEMP_UNIT_MAPPING[tempUnit]}`}
         />
 
         <DetailCard
           isLoading={isPending}
           className="current-forecast__detail-card"
           title="Humidity"
-          value={humidity}
+          value={`${forecast?.current.relative_humidity_2m}%`}
         />
 
         <DetailCard
           isLoading={isPending}
           className="current-forecast__detail-card"
           title="Wind"
-          value={wind}
+          value={`${Math.round(forecast?.current.wind_speed_10m)} ${windUnit}`}
         />
 
         <DetailCard
           isLoading={isPending}
           className="current-forecast__detail-card"
           title="Precipitation"
-          value={precipitation}
+          value={`${forecast?.current.precipitation.toFixed(1)} ${precipitationUnit}`}
         />
       </div>
     </div>

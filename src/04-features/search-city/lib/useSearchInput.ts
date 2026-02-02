@@ -15,7 +15,7 @@ export function useSearchInput() {
   const isUserSelectedCity = useRef(false)
 
   useEffect(() => {
-    if (prevIsPending.current && isPending === false && isUserSelectedCity.current) {
+    if (prevIsPending.current && !isPending && isUserSelectedCity.current) {
       setIsFocused(false)
       setInputValue('')
       isUserSelectedCity.current = false

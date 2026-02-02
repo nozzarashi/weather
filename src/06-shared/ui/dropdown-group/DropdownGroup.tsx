@@ -1,12 +1,13 @@
 import type { ReactNode } from 'react'
 import './dropdownGroup.css'
 
-interface DropdownGroupProps {
+export function DropdownGroup({
+  children,
+  title,
+}: Readonly<{
   children: ReactNode
   title: string
-}
-
-export function DropdownGroup({ children, title }: DropdownGroupProps) {
+}>) {
   return (
     <div className="dropdown__group">
       <span className="dropdown__group__title">{title}</span>

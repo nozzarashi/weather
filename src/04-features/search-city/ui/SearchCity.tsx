@@ -10,10 +10,8 @@ import { useSearchInput } from '../lib/useSearchInput'
 import { useRecentlySearchedCities } from '../lib/useRecentlySearchedCities'
 import type { City } from '../model/city'
 
-export function SearchCity({ className }: { className?: string }) {
-  const rootClassName = `search-city ${className || ''}`.trim()
+export function SearchCity({ className }: Readonly<{ className?: string }>) {
   const queryClient = useQueryClient()
-
   const {
     inputValue,
     setInputValue,
@@ -24,15 +22,13 @@ export function SearchCity({ className }: { className?: string }) {
     isPending,
     isUserSelectedCity,
   } = useSearchInput()
-
   const { addSearchedCities, searchedCities } = useRecentlySearchedCities()
-
   const cityName = useSelectedCityStore((state) => state.cityName)
   const setCityInfo = useSelectedCityStore((state) => state.setCityInfo)
   const { data: cities } = useGetCityCoordinates(debouncedValue)
 
   function handleCitySelect(city: City) {
-    const { tempUnit, windUnit, precipUnit } = useMetricsStore.getState()
+    const { tempUnit, windUnit, precipitationUnit } = useMetricsStore.getState()
     const queryKey = [
       'city',
       'forecast',
@@ -40,7 +36,7 @@ export function SearchCity({ className }: { className?: string }) {
       city.longitude,
       tempUnit,
       windUnit,
-      precipUnit,
+      precipitationUnit,
     ]
     const currentCityCache = queryClient.getQueryData(queryKey)
 
@@ -65,7 +61,7 @@ export function SearchCity({ className }: { className?: string }) {
       onSubmit={(event) => {
         event.preventDefault()
       }}
-      className={rootClassName}
+      className={`search-city ${className || ''}`.trim()}
     >
       <div className="search-city__input-wrapper">
         <div

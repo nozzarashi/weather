@@ -1,9 +1,12 @@
-interface LogoProps {
-  className: string
-  icon: React.ReactNode
-}
+import type { ReactNode } from 'react'
 
-export function Logo({ className, icon }: LogoProps) {
+export function Logo({
+  className,
+  icon,
+}: Readonly<{
+  className: string
+  icon: ReactNode
+}>) {
   return (
     <a className={className} style={{ display: 'inline-block' }} href="/">
       {icon}

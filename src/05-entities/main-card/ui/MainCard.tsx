@@ -1,15 +1,6 @@
 import { SkeletonOverlay } from '@/06-shared/ui'
 import './main-card.css'
 
-interface MainCardProps {
-  className: string
-  location: string
-  date: string
-  iconSrc: string
-  temperature: string
-  isLoading: boolean
-}
-
 export function MainCard({
   className,
   location,
@@ -17,7 +8,14 @@ export function MainCard({
   iconSrc,
   temperature,
   isLoading,
-}: MainCardProps) {
+}: Readonly<{
+  className: string
+  location: string
+  date: string
+  iconSrc: string
+  temperature: string
+  isLoading: boolean
+}>) {
   return (
     <div className={`${className} skeleton-container`}>
       <div className="main-card__wrapper">

@@ -1,8 +1,8 @@
-import '@/03-widgets/header/ui/header.css'
-import logoIcon from 'assets/icons/logo.svg'
-
 import { Logo } from '@/06-shared/ui'
 import { ChangeMetrics } from '@/04-features/change-metrics'
+
+import '@/03-widgets/header/ui/header.css'
+import logoIcon from 'assets/icons/logo.svg'
 
 export function Header() {
   return (

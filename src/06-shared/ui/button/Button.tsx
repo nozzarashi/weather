@@ -1,13 +1,6 @@
-import './button.css'
+import type { ReactNode } from 'react'
 
-interface ButtonProps {
-  text: string
-  className?: string
-  type?: 'submit' | 'reset' | 'button'
-  beforeIcon?: React.ReactNode
-  afterIcon?: React.ReactNode
-  onclick?: () => void
-}
+import './button.css'
 
 export function Button({
   className,
@@ -16,7 +9,14 @@ export function Button({
   beforeIcon,
   afterIcon,
   onclick,
-}: ButtonProps) {
+}: Readonly<{
+  text: string
+  className?: string
+  type?: 'submit' | 'reset' | 'button'
+  beforeIcon?: ReactNode
+  afterIcon?: ReactNode
+  onclick?: () => void
+}>) {
   return (
     <button type={type} onClick={onclick} className={`button ${className}`}>
       {beforeIcon}

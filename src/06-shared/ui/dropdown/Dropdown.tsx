@@ -1,15 +1,18 @@
-import { type ReactNode, useRef, useState } from 'react'
+import { type ReactNode, type SetStateAction, useRef, useState } from 'react'
 
 import './dropdown.css'
 
-interface DropdownProps {
-  onOpenChange?: (set: React.SetStateAction<boolean>) => void
-  trigger: ReactNode
-  isOpened?: boolean
+export function Dropdown({
+  isOpened,
+  onOpenChange,
+  trigger,
+  children,
+}: Readonly<{
   children: ReactNode
-}
-
-export function Dropdown({ isOpened, onOpenChange, trigger, children }: DropdownProps) {
+  trigger: ReactNode
+  onOpenChange?: (set: SetStateAction<boolean>) => void
+  isOpened?: boolean
+}>) {
   const [internalIsOpened, setInternalIsOpened] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 

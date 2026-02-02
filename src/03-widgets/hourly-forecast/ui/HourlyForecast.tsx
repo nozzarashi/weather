@@ -16,20 +16,17 @@ interface HourlyForecast {
   weatherCode: number
 }
 
-export function HourlyForecast({ className }: { className: string }) {
-  const rootClassName = `hourly-forecast ${className || ''} skeleton-container`.trim()
+export function HourlyForecast({ className }: Readonly<{ className: string }>) {
   const tempUnit = useMetricsStore((state) => state.tempUnit)
-
   const { isPending, data: forecast } = useGetWeatherForecast()
-  const hourlyData = forecast?.hourly
-
   const { setWeekday, weekday: currentWeekday } = useWeekdayStore()
   const ref = useRef<HTMLDivElement>(null)
 
-  const weather = useMemo(() => {
+  // TODO: Зачем писать функцию для форматирования выдачи forecast тут, перенеси ее в useGetWeatherForecast и отдавай forecast сразу форматированным
+  const hourlyForecast = useMemo(() => {
     const result: HourlyForecast[] = []
 
-    hourlyData?.time?.forEach((time: string, index: number) => {
+    forecast?.hourly.time?.forEach((time: string, index: number) => {
       const formattedByWeekday = weekdayFormatter('long').format(new Date(time))
 
       if (formattedByWeekday === currentWeekday && Date.now() < new Date(time).getTime()) {
@@ -37,23 +34,28 @@ export function HourlyForecast({ className }: { className: string }) {
 
         result.push({
           time: formattedByHours,
-          temperature: hourlyData.temperature_2m[index],
-          weatherCode: hourlyData.weather_code[index],
+          temperature: forecast?.hourly.temperature_2m[index],
+          weatherCode: forecast?.hourly.weather_code[index],
         })
       }
     })
 
     return result
-  }, [hourlyData?.temperature_2m, hourlyData?.time, hourlyData?.weather_code, currentWeekday])
+  }, [
+    forecast?.hourly.temperature_2m,
+    forecast?.hourly.time,
+    forecast?.hourly.weather_code,
+    currentWeekday,
+  ])
 
   useEffect(() => {
-    if (hourlyData?.time) {
+    if (forecast?.hourly.time) {
       const currentWeekday = Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
-        new Date(hourlyData.time[0]),
+        new Date(forecast?.hourly.time[0]),
       )
       setWeekday(currentWeekday as Weekday)
     }
-  }, [hourlyData, setWeekday])
+  }, [forecast?.hourly, setWeekday])
 
   useEffect(() => {
     if (!ref.current) return
@@ -61,7 +63,7 @@ export function HourlyForecast({ className }: { className: string }) {
   }, [currentWeekday])
 
   return (
-    <div className={rootClassName}>
+    <div className={`hourly-forecast ${className || ''} skeleton-container`.trim()}>
       <SkeletonOverlay isLoading={isPending} />
 
       <div className="hourly-forecast__header">
@@ -69,7 +71,7 @@ export function HourlyForecast({ className }: { className: string }) {
         {forecast && <ChangeWeekday />}
       </div>
       <div ref={ref} className="hourly-forecast__body">
-        {weather?.map((el: HourlyForecast) => (
+        {hourlyForecast?.map((el: HourlyForecast) => (
           <HourlyCard
             key={el.time}
             time={el.time}

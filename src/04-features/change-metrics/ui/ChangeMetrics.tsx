@@ -9,33 +9,33 @@ import checkmarkIcon from 'assets/icons/icon-checkmark.svg'
 import { useShallow } from 'zustand/shallow'
 import { useMetricsStore } from '../model/metrics-store'
 
-const TEMP_UNITS = {
+const TEMP_UNITS = Object.freeze({
   CELSIUS: 'celsius',
   FAHRENHEIT: 'fahrenheit',
-} as const
+} as const)
 
-const WIND_UNITS = {
+const WIND_UNITS = Object.freeze({
   KMH: 'kmh',
   MPH: 'mph',
-} as const
+} as const)
 
-const PRECIP_UNITS = {
+const PRECIPITATION_UNITS = Object.freeze({
   MILLIMETERS: 'mm',
   INCHES: 'inch',
-} as const
+} as const)
 
 export function ChangeMetrics() {
-  const { tempUnit, windUnit, precipUnit, setTempUnit, setWindUnit, setPrecipUnit } =
+  const { tempUnit, windUnit, precipitationUnit, setTempUnit, setWindUnit, setPrecipitationUnit } =
     useMetricsStore(
       useShallow((state) => {
         return {
           tempUnit: state.tempUnit,
           windUnit: state.windUnit,
-          precipUnit: state.precipUnit,
+          precipitationUnit: state.precipitationUnit,
 
           setTempUnit: state.setTempUnit,
           setWindUnit: state.setWindUnit,
-          setPrecipUnit: state.setPrecipUnit,
+          setPrecipitationUnit: state.setPrecipitationUnit,
         }
       }),
     )
@@ -44,6 +44,7 @@ export function ChangeMetrics() {
     <Dropdown
       trigger={
         <Button
+          // TODO: alt атрибут обязателем для img, пройди по всему проекту и проставь
           beforeIcon={<img src={iconUnits} />}
           afterIcon={<img src={dropdownIcon} />}
           text="Units"
@@ -92,17 +93,17 @@ export function ChangeMetrics() {
       <DropdownGroup title="Precipitation">
         <DropdownItem
           onClick={() => {
-            setPrecipUnit(PRECIP_UNITS.MILLIMETERS)
+            setPrecipitationUnit(PRECIPITATION_UNITS.MILLIMETERS)
           }}
-          selected={precipUnit === PRECIP_UNITS.MILLIMETERS}
+          selected={precipitationUnit === PRECIPITATION_UNITS.MILLIMETERS}
           text="Millimeters (mm)"
           icon={<img src={checkmarkIcon} alt="иконка отмеченного пункта" />}
         />
         <DropdownItem
           onClick={() => {
-            setPrecipUnit(PRECIP_UNITS.INCHES)
+            setPrecipitationUnit(PRECIPITATION_UNITS.INCHES)
           }}
-          selected={precipUnit === PRECIP_UNITS.INCHES}
+          selected={precipitationUnit === PRECIPITATION_UNITS.INCHES}
           text="Inches (in)"
           icon={<img src={checkmarkIcon} alt="иконка отмеченного пункта" />}
         />
