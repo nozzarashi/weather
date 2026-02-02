@@ -1,30 +1,30 @@
-import { useQuery } from '@tanstack/react-query'
-
-export interface City {
-  name: string
-  country: string
-  admin1: string
-  admin2: string
-  id: number
-  latitude: number
-  longitude: number
-  timezone: string
-}
+import { useQuery } from '@tanstack/react-query';
+import type { City } from '../model/city';
 
 interface CityGeocodingResponse {
-  results?: City[]
+  results?: City[];
 }
 
-async function getCityCoordinates(
-  cityName: string,
-  signal: AbortSignal,
-): Promise<CityGeocodingResponse> {
-  const url = `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=5&language=en&format=json`
-  const response = await fetch(url, { signal })
+async function getCityCoordinates(cityName: string, signal: AbortSignal): Promise<CityGeocodingResponse> {
+  const url = new URL('https://geocoding-api.open-meteo.com/v1/search');
+  const CITIES_NUMBER_SHOWN = 5;
 
-  if (!response.ok) throw new Error('Ошибка поиска города')
+  const params: Record<string, string> = {
+    name: cityName,
+    count: String(CITIES_NUMBER_SHOWN),
+    language: 'en',
+    format: 'json',
+  };
 
-  return response.json()
+  Object.entries(params).forEach(([key, value]) => {
+    url.searchParams.set(key, value);
+  });
+
+  const response = await fetch(url, { signal });
+
+  if (!response.ok) throw new Error('Ошибка поиска города');
+
+  return response.json();
 }
 
 export function useGetCityCoordinates(cityName: string) {
@@ -33,5 +33,5 @@ export function useGetCityCoordinates(cityName: string) {
     queryFn: (context) => getCityCoordinates(cityName, context.signal),
     staleTime: 5 * 60 * 1000,
     enabled: cityName.length >= 3,
-  })
+  });
 }
