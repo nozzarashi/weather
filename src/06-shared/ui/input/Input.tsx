@@ -1,14 +1,14 @@
-import { type ChangeEvent } from 'react';
+import { type ChangeEvent } from 'react'
 
 interface InputProps {
-  placeholder: string;
-  value: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onFocus?: () => void;
-  inputType?: string;
-  inputClassName?: string;
-  wrapperClassName?: string;
-  startIcon?: string;
+  placeholder: string
+  value: string
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void
+  onFocus?: () => void
+  inputType?: string
+  inputClassName?: string
+  wrapperClassName?: string
+  startIcon?: string
 }
 
 export function Input({
@@ -33,5 +33,5 @@ export function Input({
         type={inputType}
       />
     </div>
-  );
+  )
 }

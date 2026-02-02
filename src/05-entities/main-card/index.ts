@@ -1,1 +1,1 @@
-export { MainCard } from './ui/MainCard';
+export { MainCard } from './ui/MainCard'

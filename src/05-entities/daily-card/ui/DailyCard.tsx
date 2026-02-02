@@ -1,17 +1,24 @@
-import { SkeletonOverlay } from '@/06-shared/ui';
-import './daily-card.css';
+import { SkeletonOverlay } from '@/06-shared/ui'
+import './daily-card.css'
 
 interface DailyCardProps {
-  className?: string;
-  weekday: string;
-  iconSrc?: string;
-  maxTemp: number | string;
-  minTemp: number | string;
-  isLoading: boolean;
+  className?: string
+  weekday: string
+  iconSrc?: string
+  maxTemp: number | string
+  minTemp: number | string
+  isLoading: boolean
 }
 
-export function DailyCard({ className, weekday, iconSrc, maxTemp, minTemp, isLoading }: DailyCardProps) {
-  const rootClassName = `daily-card ${className || ''} skeleton-container`.trim();
+export function DailyCard({
+  className,
+  weekday,
+  iconSrc,
+  maxTemp,
+  minTemp,
+  isLoading,
+}: DailyCardProps) {
+  const rootClassName = `daily-card ${className || ''} skeleton-container`.trim()
 
   return (
     <div className={rootClassName}>
@@ -23,5 +30,5 @@ export function DailyCard({ className, weekday, iconSrc, maxTemp, minTemp, isLoa
         <span className="daily-card__temps-min">{minTemp}</span>
       </div>
     </div>
-  );
+  )
 }

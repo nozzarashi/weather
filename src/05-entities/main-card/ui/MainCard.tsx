@@ -1,16 +1,23 @@
-import { SkeletonOverlay } from '@/06-shared/ui';
-import './main-card.css';
+import { SkeletonOverlay } from '@/06-shared/ui'
+import './main-card.css'
 
 interface MainCardProps {
-  className: string;
-  location: string;
-  date: string;
-  iconSrc: string;
-  temperature: string;
-  isLoading: boolean;
+  className: string
+  location: string
+  date: string
+  iconSrc: string
+  temperature: string
+  isLoading: boolean
 }
 
-export function MainCard({ className, location, date, iconSrc, temperature, isLoading }: MainCardProps) {
+export function MainCard({
+  className,
+  location,
+  date,
+  iconSrc,
+  temperature,
+  isLoading,
+}: MainCardProps) {
   return (
     <div className={`${className} skeleton-container`}>
       <div className="main-card__wrapper">
@@ -26,5 +33,5 @@ export function MainCard({ className, location, date, iconSrc, temperature, isLo
         </div>
       </div>
     </div>
-  );
+  )
 }

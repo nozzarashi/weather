@@ -1,5 +1,4 @@
 :root {
-  /* ## Colors */
   --neutral-900: #03012d;
   --neutral-800: #272541;
   --neutral-700: #312f4b;
@@ -8,8 +7,6 @@
   --neutral-300-transp: rgba(117, 117, 144, 0.184);
   --neutral-200: #d5d4d9;
   --neutral-0: #ffffff;
-
-  /* ### Custom-colors */
 
   --orange: #ff7c0a;
   --blue-500: #4455da;

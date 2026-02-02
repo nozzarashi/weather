@@ -1,6 +1,6 @@
 interface LogoProps {
-  className: string;
-  icon: React.ReactNode;
+  className: string
+  icon: React.ReactNode
 }
 
 export function Logo({ className, icon }: LogoProps) {
@@ -8,5 +8,5 @@ export function Logo({ className, icon }: LogoProps) {
     <a className={className} style={{ display: 'inline-block' }} href="/">
       {icon}
     </a>
-  );
+  )
 }

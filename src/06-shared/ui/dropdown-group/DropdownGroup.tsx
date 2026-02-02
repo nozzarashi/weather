@@ -1,9 +1,9 @@
-import type { ReactNode } from 'react';
-import './dropdownGroup.css';
+import type { ReactNode } from 'react'
+import './dropdownGroup.css'
 
 interface DropdownGroupProps {
-  children: ReactNode;
-  title: string;
+  children: ReactNode
+  title: string
 }
 
 export function DropdownGroup({ children, title }: DropdownGroupProps) {
@@ -12,5 +12,5 @@ export function DropdownGroup({ children, title }: DropdownGroupProps) {
       <span className="dropdown__group__title">{title}</span>
       <div className="dropdown__group-items">{children}</div>
     </div>
-  );
+  )
 }

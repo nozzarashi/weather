@@ -1,1 +1,1 @@
-export { ChangeMetrics } from './ui/ChangeMetrics';
+export { ChangeMetrics } from './ui/ChangeMetrics'

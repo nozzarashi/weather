@@ -1,11 +1,11 @@
-import type { ReactNode, MouseEvent } from 'react';
-import './dropdownItem.css';
+import type { ReactNode, MouseEvent } from 'react'
+import './dropdownItem.css'
 
 interface DropdownItemProps {
-  text: string | number;
-  onClick: (event: MouseEvent<HTMLDivElement>) => void;
-  icon?: ReactNode;
-  selected?: boolean;
+  text: string | number
+  onClick: (event: MouseEvent<HTMLDivElement>) => void
+  icon?: ReactNode
+  selected?: boolean
 }
 
 export function DropdownItem({ selected, text, icon, onClick }: DropdownItemProps) {
@@ -14,5 +14,5 @@ export function DropdownItem({ selected, text, icon, onClick }: DropdownItemProp
       <span className="dropdown-item__text">{text}</span>
       {selected && icon}
     </div>
-  );
+  )
 }

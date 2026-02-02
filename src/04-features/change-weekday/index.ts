@@ -1,1 +1,1 @@
-export { ChangeWeekday } from './ui/ChangeWeekday';
+export { ChangeWeekday } from './ui/ChangeWeekday'

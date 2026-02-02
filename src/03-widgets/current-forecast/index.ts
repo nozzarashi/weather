@@ -1,1 +1,1 @@
-export { CurrentForecast } from './ui/CurrentForecast';
+export { CurrentForecast } from './ui/CurrentForecast'

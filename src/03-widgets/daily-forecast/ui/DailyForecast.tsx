@@ -1,18 +1,17 @@
-import { DailyCard } from '@/05-entities/daily-card';
-import './daily-forecast.css';
-import { useGetWeatherForecast } from '@/04-features/search-city/api/getWeatherForecast';
-import { TEMP_UNIT_MAPPING } from '@/06-shared/constants';
-import { useMetricsStore } from '@/04-features/change-metrics/model/metrics-store';
-import { ICON_CODES } from '@/06-shared/constants';
+import { DailyCard } from '@/05-entities/daily-card'
+import './daily-forecast.css'
+import { useGetWeatherForecast } from '@/04-features/search-city/api/getWeatherForecast'
+import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants'
+import { useMetricsStore } from '@/04-features/change-metrics/model/metrics-store'
 
 export function DailyForecast({ className }: { className?: string }) {
-  const rootClassName = `daily-forecast ${className || ''}`.trim();
-  const tempUnit = useMetricsStore((state) => state.tempUnit);
+  const rootClassName = `daily-forecast ${className || ''}`.trim()
+  const tempUnit = useMetricsStore((state) => state.tempUnit)
 
-  const formatterByWeek = Intl.DateTimeFormat('en-US', { weekday: 'short' });
+  const formatterByWeek = Intl.DateTimeFormat('en-US', { weekday: 'short' })
 
-  const { isPending, data } = useGetWeatherForecast();
-  const dailyData = data?.daily;
+  const { isPending, data } = useGetWeatherForecast()
+  const dailyData = data?.daily
 
   return (
     <div className={rootClassName}>
@@ -35,5 +34,5 @@ export function DailyForecast({ className }: { className?: string }) {
             ))}
       </div>
     </div>
-  );
+  )
 }
