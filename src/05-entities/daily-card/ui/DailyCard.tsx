@@ -9,12 +9,12 @@ export function DailyCard({
   minTemp,
   isLoading,
 }: Readonly<{
-  className?: string
   weekday: string
-  iconSrc?: string
   maxTemp: number | string
   minTemp: number | string
   isLoading: boolean
+  iconSrc?: string
+  className?: string
 }>) {
   return (
     <div className={`daily-card ${className || ''} skeleton-container`.trim()}>
