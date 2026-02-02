@@ -1,3 +1,3 @@
-export { ChangeWeekday } from './ui/ChangeWeekday';
+export { ChangeWeekday } from './ui/ChangeWeekday'
 
-export { useWeekdayStore, type Weekday } from './model/weekday-store.ts';
+export { useWeekdayStore, type Weekday } from './model/weekday-store.ts'

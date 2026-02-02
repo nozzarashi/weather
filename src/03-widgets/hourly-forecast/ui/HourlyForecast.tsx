@@ -1,62 +1,64 @@
-import './hourly-forecast.css';
-import { useEffect, useMemo, useRef } from 'react';
+import './hourly-forecast.css'
+import { useEffect, useMemo, useRef } from 'react'
 
-import { SkeletonOverlay } from '@/06-shared/ui';
+import { SkeletonOverlay } from '@/06-shared/ui'
 
-import { HourlyCard } from '@/05-entities/hourly-card';
-import { ChangeWeekday, useWeekdayStore, type Weekday } from '@/04-features/change-weekday';
-import { useGetWeatherForecast } from '@/04-features/search-city';
-import { useMetricsStore } from '@/04-features/change-metrics';
-import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants';
-import { timeFormatter, weekdayFormatter } from '@/06-shared/lib';
+import { HourlyCard } from '@/05-entities/hourly-card'
+import { ChangeWeekday, useWeekdayStore, type Weekday } from '@/04-features/change-weekday'
+import { useGetWeatherForecast } from '@/04-features/search-city'
+import { useMetricsStore } from '@/04-features/change-metrics'
+import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants'
+import { timeFormatter, weekdayFormatter } from '@/06-shared/lib'
 
 interface HourlyForecast {
-  time: string;
-  temperature: number;
-  weatherCode: number;
+  time: string
+  temperature: number
+  weatherCode: number
 }
 
 export function HourlyForecast({ className }: { className: string }) {
-  const rootClassName = `hourly-forecast ${className || ''} skeleton-container`.trim();
-  const tempUnit = useMetricsStore((state) => state.tempUnit);
+  const rootClassName = `hourly-forecast ${className || ''} skeleton-container`.trim()
+  const tempUnit = useMetricsStore((state) => state.tempUnit)
 
-  const { isPending, data: forecast } = useGetWeatherForecast();
-  const hourlyData = forecast?.hourly;
+  const { isPending, data: forecast } = useGetWeatherForecast()
+  const hourlyData = forecast?.hourly
 
-  const { setWeekday, weekday: currentWeekday } = useWeekdayStore();
-  const ref = useRef<HTMLDivElement>(null);
+  const { setWeekday, weekday: currentWeekday } = useWeekdayStore()
+  const ref = useRef<HTMLDivElement>(null)
 
   const weather = useMemo(() => {
-    const result: HourlyForecast[] = [];
+    const result: HourlyForecast[] = []
 
     hourlyData?.time?.forEach((time: string, index: number) => {
-      const formattedByWeekday = weekdayFormatter('long').format(new Date(time));
+      const formattedByWeekday = weekdayFormatter('long').format(new Date(time))
 
       if (formattedByWeekday === currentWeekday && Date.now() < new Date(time).getTime()) {
-        const formattedByHours = timeFormatter.format(new Date(time));
+        const formattedByHours = timeFormatter.format(new Date(time))
 
         result.push({
           time: formattedByHours,
           temperature: hourlyData.temperature_2m[index],
           weatherCode: hourlyData.weather_code[index],
-        });
+        })
       }
-    });
+    })
 
-    return result;
-  }, [hourlyData?.temperature_2m, hourlyData?.time, hourlyData?.weather_code, currentWeekday]);
+    return result
+  }, [hourlyData?.temperature_2m, hourlyData?.time, hourlyData?.weather_code, currentWeekday])
 
   useEffect(() => {
     if (hourlyData?.time) {
-      const currentWeekday = Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(new Date(hourlyData.time[0]));
-      setWeekday(currentWeekday as Weekday);
+      const currentWeekday = Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
+        new Date(hourlyData.time[0]),
+      )
+      setWeekday(currentWeekday as Weekday)
     }
-  }, [hourlyData, setWeekday]);
+  }, [hourlyData, setWeekday])
 
   useEffect(() => {
-    if (!ref.current) return;
-    ref.current.scrollTop = 0;
-  }, [currentWeekday]);
+    if (!ref.current) return
+    ref.current.scrollTop = 0
+  }, [currentWeekday])
 
   return (
     <div className={rootClassName}>
@@ -77,5 +79,5 @@ export function HourlyForecast({ className }: { className: string }) {
         ))}
       </div>
     </div>
-  );
+  )
 }

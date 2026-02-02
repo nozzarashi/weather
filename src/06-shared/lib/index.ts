@@ -1,2 +1,2 @@
-export * from './react';
-export * from './date';
+export * from './react'
+export * from './date'

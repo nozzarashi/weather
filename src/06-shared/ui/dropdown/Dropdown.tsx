@@ -1,39 +1,39 @@
-import { type ReactNode, useRef, useState } from 'react';
+import { type ReactNode, useRef, useState } from 'react'
 
-import './dropdown.css';
+import './dropdown.css'
 
 interface DropdownProps {
-  onOpenChange?: (set: React.SetStateAction<boolean>) => void;
-  trigger: ReactNode;
-  isOpened?: boolean;
-  children: ReactNode;
+  onOpenChange?: (set: React.SetStateAction<boolean>) => void
+  trigger: ReactNode
+  isOpened?: boolean
+  children: ReactNode
 }
 
 export function Dropdown({ isOpened, onOpenChange, trigger, children }: DropdownProps) {
-  const [internalIsOpened, setInternalIsOpened] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [internalIsOpened, setInternalIsOpened] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
-  const isControlled = isOpened !== undefined;
-  const actualOpenedState = isControlled ? isOpened : internalIsOpened;
+  const isControlled = isOpened !== undefined
+  const actualOpenedState = isControlled ? isOpened : internalIsOpened
 
   const handleClose = () => {
-    if (isControlled) onOpenChange?.(false);
-    else setInternalIsOpened(false);
-  };
+    if (isControlled) onOpenChange?.(false)
+    else setInternalIsOpened(false)
+  }
 
   const handleToggle = () => {
-    if (isControlled) onOpenChange?.(!isOpened);
-    else setInternalIsOpened(!internalIsOpened);
-  };
+    if (isControlled) onOpenChange?.(!isOpened)
+    else setInternalIsOpened(!internalIsOpened)
+  }
 
   return (
     <div
       onKeyDown={(event) => {
-        if (event.key === 'Escape') handleClose();
+        if (event.key === 'Escape') handleClose()
       }}
       tabIndex={0}
       onBlur={(event) => {
-        if (!dropdownRef.current?.contains(event.relatedTarget)) handleClose();
+        if (!dropdownRef.current?.contains(event.relatedTarget)) handleClose()
       }}
       ref={dropdownRef}
       className="dropdown"
@@ -41,5 +41,5 @@ export function Dropdown({ isOpened, onOpenChange, trigger, children }: Dropdown
       <div onClick={handleToggle}>{trigger}</div>
       {actualOpenedState && <div className="dropdown__content">{children}</div>}
     </div>
-  );
+  )
 }

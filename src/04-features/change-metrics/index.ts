@@ -1,2 +1,2 @@
-export { ChangeMetrics } from './ui/ChangeMetrics';
-export { useMetricsStore } from './model/metrics-store.ts';
+export { ChangeMetrics } from './ui/ChangeMetrics'
+export { useMetricsStore } from './model/metrics-store.ts'

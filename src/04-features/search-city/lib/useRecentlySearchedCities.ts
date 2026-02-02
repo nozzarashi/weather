@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import type { City } from '../model/city';
+import { useState } from 'react'
+import type { City } from '../model/city'
 
 export function useRecentlySearchedCities() {
-  const [searchedCities, setSearchedCities] = useState<City[]>([]);
+  const [searchedCities, setSearchedCities] = useState<City[]>([])
 
   const addSearchedCities = (city: City) => {
     setSearchedCities((prevCities) => {
-      const filteredCities = prevCities.filter((prevCity) => prevCity.id !== city.id);
+      const filteredCities = prevCities.filter((prevCity) => prevCity.id !== city.id)
 
       return [
         {
@@ -19,9 +19,9 @@ export function useRecentlySearchedCities() {
         },
 
         ...filteredCities,
-      ].slice(0, 5);
-    });
-  };
+      ].slice(0, 5)
+    })
+  }
 
-  return { searchedCities, addSearchedCities };
+  return { searchedCities, addSearchedCities }
 }
