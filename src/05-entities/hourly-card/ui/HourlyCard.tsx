@@ -6,10 +6,10 @@ export function HourlyCard({
   time,
   temp,
 }: Readonly<{
-  className?: string
   iconSrc: string
   time: string
   temp: string
+  className?: string
 }>) {
   return (
     <div className={`hourly-card ${className || ''} skeleton-container`.trim()}>
