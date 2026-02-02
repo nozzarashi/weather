@@ -1,15 +1,4 @@
-import { type ChangeEvent } from 'react';
-
-interface InputProps {
-  placeholder: string;
-  value: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onFocus?: () => void;
-  inputType?: string;
-  inputClassName?: string;
-  wrapperClassName?: string;
-  startIcon?: string;
-}
+import { type ChangeEvent } from 'react'
 
 export function Input({
   inputClassName = '',
@@ -20,7 +9,16 @@ export function Input({
   onFocus,
   startIcon,
   value,
-}: InputProps) {
+}: Readonly<{
+  placeholder: string
+  value: string
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void
+  onFocus?: () => void
+  inputType?: string
+  inputClassName?: string
+  wrapperClassName?: string
+  startIcon?: string
+}>) {
   return (
     <div className={wrapperClassName}>
       <img src={startIcon} alt="Иконка поиска" />
@@ -33,5 +31,5 @@ export function Input({
         type={inputType}
       />
     </div>
-  );
+  )
 }

@@ -1,2 +1,2 @@
-export { weekdayFormatter } from './weekdayFormatter.ts';
-export { timeFormatter } from './timeFormatter.ts';
+export { weekdayFormatter } from './weekdayFormatter.ts'
+export { timeFormatter } from './timeFormatter.ts'

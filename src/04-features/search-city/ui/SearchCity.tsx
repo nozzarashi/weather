@@ -1,19 +1,17 @@
-import './search-city.css';
-import searchIcon from '@/../assets/icons/icon-search.svg';
-import { Input } from '@/06-shared/ui';
-import { useGetCityCoordinates } from '../api/getCityCoordinates';
-import { useSelectedCityStore } from '../model/selected-city-store';
-import { ClipLoader } from 'react-spinners';
-import { useQueryClient } from '@tanstack/react-query';
-import { useMetricsStore } from '@/04-features/change-metrics';
-import { useSearchInput } from '../lib/useSearchInput';
-import { useRecentlySearchedCities } from '../lib/useRecentlySearchedCities';
-import type { City } from '../model/city';
+import './search-city.css'
+import searchIcon from '@/../assets/icons/icon-search.svg'
+import { Input } from '@/06-shared/ui'
+import { useGetCityCoordinates } from '../api/getCityCoordinates'
+import { useSelectedCityStore } from '../model/selected-city-store'
+import { ClipLoader } from 'react-spinners'
+import { useQueryClient } from '@tanstack/react-query'
+import { useMetricsStore } from '@/04-features/change-metrics'
+import { useSearchInput } from '../lib/useSearchInput'
+import { useRecentlySearchedCities } from '../lib/useRecentlySearchedCities'
+import type { City } from '../model/city'
 
-export function SearchCity({ className }: { className?: string }) {
-  const rootClassName = `search-city ${className || ''}`.trim();
-  const queryClient = useQueryClient();
-
+export function SearchCity({ className }: Readonly<{ className?: string }>) {
+  const queryClient = useQueryClient()
   const {
     inputValue,
     setInputValue,
@@ -23,43 +21,53 @@ export function SearchCity({ className }: { className?: string }) {
     containerRef,
     isPending,
     isUserSelectedCity,
-  } = useSearchInput();
-
-  const { addSearchedCities, searchedCities } = useRecentlySearchedCities();
-
-  const cityName = useSelectedCityStore((state) => state.cityName);
-  const setCityInfo = useSelectedCityStore((state) => state.setCityInfo);
-  const { data: cities } = useGetCityCoordinates(debouncedValue);
+  } = useSearchInput()
+  const { addSearchedCities, searchedCities } = useRecentlySearchedCities()
+  const cityName = useSelectedCityStore((state) => state.cityName)
+  const setCityInfo = useSelectedCityStore((state) => state.setCityInfo)
+  const { data: cities } = useGetCityCoordinates(debouncedValue)
 
   function handleCitySelect(city: City) {
-    const { tempUnit, windUnit, precipUnit } = useMetricsStore.getState();
-    const queryKey = ['city', 'forecast', city.latitude, city.longitude, tempUnit, windUnit, precipUnit];
-    const currentCityCache = queryClient.getQueryData(queryKey);
+    const { tempUnit, windUnit, precipitationUnit } = useMetricsStore.getState()
+    const queryKey = [
+      'city',
+      'forecast',
+      city.latitude,
+      city.longitude,
+      tempUnit,
+      windUnit,
+      precipitationUnit,
+    ]
+    const currentCityCache = queryClient.getQueryData(queryKey)
 
-    isUserSelectedCity.current = true;
-    setCityInfo(`${city.name}${city.country ? ', ' + city.country : ''}`, city.latitude, city.longitude);
+    isUserSelectedCity.current = true
+    setCityInfo(
+      `${city.name}${city.country ? ', ' + city.country : ''}`,
+      city.latitude,
+      city.longitude,
+    )
 
     if (currentCityCache) {
-      setIsFocused(false);
-      setInputValue('');
-      isUserSelectedCity.current = false;
+      setIsFocused(false)
+      setInputValue('')
+      isUserSelectedCity.current = false
     }
 
-    addSearchedCities(city);
+    addSearchedCities(city)
   }
 
   return (
     <form
       onSubmit={(event) => {
-        event.preventDefault();
+        event.preventDefault()
       }}
-      className={rootClassName}
+      className={`search-city ${className || ''}`.trim()}
     >
       <div className="search-city__input-wrapper">
         <div
           tabIndex={0}
           onBlur={(event) => {
-            if (!containerRef.current?.contains(event.relatedTarget)) setIsFocused(false);
+            if (!containerRef.current?.contains(event.relatedTarget)) setIsFocused(false)
           }}
           ref={containerRef}
           className="search-city__input-container"
@@ -67,10 +75,10 @@ export function SearchCity({ className }: { className?: string }) {
           <Input
             value={inputValue}
             onChange={(event) => {
-              setInputValue(event.target.value);
+              setInputValue(event.target.value)
             }}
             onFocus={() => {
-              setIsFocused(true);
+              setIsFocused(true)
             }}
             startIcon={searchIcon}
             wrapperClassName="search-city__wrapper"
@@ -91,8 +99,8 @@ export function SearchCity({ className }: { className?: string }) {
                     return (
                       <li
                         onClick={(event) => {
-                          event.stopPropagation();
-                          handleCitySelect(city);
+                          event.stopPropagation()
+                          handleCitySelect(city)
                         }}
                         className="search-city__results-item"
                         key={city.id}
@@ -103,7 +111,7 @@ export function SearchCity({ className }: { className?: string }) {
                           {city.admin2 ? ', ' + city.admin2 : ''}
                         </p>
                       </li>
-                    );
+                    )
                   })}
                 </ul>
               ) : (
@@ -114,7 +122,7 @@ export function SearchCity({ className }: { className?: string }) {
                       <li
                         className="search-city__searched-cities-item"
                         onClick={() => {
-                          handleCitySelect(city);
+                          handleCitySelect(city)
                         }}
                         key={city.id}
                       >
@@ -129,5 +137,5 @@ export function SearchCity({ className }: { className?: string }) {
         </div>
       </div>
     </form>
-  );
+  )
 }

@@ -1,20 +1,27 @@
-import './button.css';
+import type { ReactNode } from 'react'
 
-interface ButtonProps {
-  text: string;
-  className?: string;
-  type?: 'submit' | 'reset' | 'button';
-  beforeIcon?: React.ReactNode;
-  afterIcon?: React.ReactNode;
-  onclick?: () => void;
-}
+import './button.css'
 
-export function Button({ className, text, type = 'submit', beforeIcon, afterIcon, onclick }: ButtonProps) {
+export function Button({
+  className,
+  text,
+  type = 'submit',
+  beforeIcon,
+  afterIcon,
+  onclick,
+}: Readonly<{
+  text: string
+  className?: string
+  type?: 'submit' | 'reset' | 'button'
+  beforeIcon?: ReactNode
+  afterIcon?: ReactNode
+  onclick?: () => void
+}>) {
   return (
     <button type={type} onClick={onclick} className={`button ${className}`}>
       {beforeIcon}
       <span>{text}</span>
       {afterIcon}
     </button>
-  );
+  )
 }

@@ -1,10 +1,10 @@
-import { create } from 'zustand';
+import { create } from 'zustand'
 
 interface SelectedCityStore {
-  cityName: string;
-  latitude: number;
-  longitude: number;
-  setCityInfo: (cityName: string, latitude: number, longitude: number) => void;
+  cityName: string
+  latitude: number
+  longitude: number
+  setCityInfo: (cityName: string, latitude: number, longitude: number) => void
 }
 
 export const useSelectedCityStore = create<SelectedCityStore>((set) => {
@@ -14,7 +14,7 @@ export const useSelectedCityStore = create<SelectedCityStore>((set) => {
     longitude: 37.61556,
 
     setCityInfo: (cityName: string, latitude: number, longitude: number) => {
-      return set({ cityName, latitude, longitude });
+      return set({ cityName, latitude, longitude })
     },
-  };
-});
+  }
+})

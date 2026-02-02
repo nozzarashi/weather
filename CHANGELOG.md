@@ -1,37 +1,17 @@
+# Changelog (EN)
+
+## [0.1.0] - 2026-01-18
+
+### Added
+
+- A complete implementation of a weather dashboard.
+
+================================
+
 # Changelog (RU)
 
 ## [0.1.0] - 2026-01-18
 
-### 🚀 Initial Stable Release (Weather Dashboard MVP)
+### Added
 
-Полная реализация погодного дашборда с использованием архитектуры Feature-Sliced Design (FSD). Приложение готово к работе и предоставляет полный цикл взаимодействия с данными Open-Meteo API.
-
-### 🏗 Architecture & Core
-
-- **FSD Implementation:** Полное разделение проекта на слои (app, pages, widgets, features, entities, shared).
-- **Tech Stack:** Vite + React 19 + TypeScript 5.9.
-- **Data Fetching:** Интеграция TanStack Query (v5) с кэшированием и DevTools.
-- **State Management:** Сторы на Zustand для управления городами, метриками и выбранными днями.
-
-### 🌦 Weather Features
-
-- **Current Weather:** Отображение текущей температуры, влажности, скорости ветра и осадков.
-- **Hourly Forecast:** 24-часовой прогноз с горизонтальным скроллом.
-- **Daily Forecast:** Прогноз на 7 дней с детализацией min/max температур.
-- **WMO Mapping:** Система маппинга погодных кодов (0-99) в иконки (30+ состояний).
-
-### 🔍 Search & Geocoding
-
-- **Autocomplete Search:** Поиск городов через Open-Meteo Geocoding API.
-- **Optimization:** Дебаунс ввода (300мс) для сокращения API-запросов.
-- **History:** Сохранение последних 5 найденных городов.
-
-### ⚙️ Unit & Settings System
-
-- **Metric Switching:** Переключение единиц: Цельсий/Фаренгейт, км/ч / мили/ч, мм/дюймы.
-- **Dynamic Conversion:** Автоматический пересчет данных при смене настроек.
-
-### 🎨 UI/UX & Design
-
-- **Skeleton Loading:** Система Skeleton-экранов для всех блоков для улучшения LCP.
-- **Typography:** Шрифт Montserrat и гибкая система CSS-переменных.
+- Полная реализация погодного дашборда.

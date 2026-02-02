@@ -1,1 +1,1 @@
-export { HourlyForecast } from './ui/HourlyForecast';
+export { HourlyForecast } from './ui/HourlyForecast'

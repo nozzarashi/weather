@@ -1,17 +1,18 @@
-import './hourly-card.css';
+import './hourly-card.css'
 
-interface HourlyCardProps {
-  className?: string;
-  iconSrc: string;
-  time: string;
-  temp: string;
-}
-
-export function HourlyCard({ className, iconSrc, time, temp }: HourlyCardProps) {
-  const rootClassName = `hourly-card ${className || ''} skeleton-container`.trim();
-
+export function HourlyCard({
+  className,
+  iconSrc,
+  time,
+  temp,
+}: Readonly<{
+  iconSrc: string
+  time: string
+  temp: string
+  className?: string
+}>) {
   return (
-    <div className={rootClassName}>
+    <div className={`hourly-card ${className || ''} skeleton-container`.trim()}>
       <div className="hourly-card__left">
         <img className="hourly-card__icon" src={iconSrc} alt="" />
         <span className="hourly-card__time">{time}</span>
@@ -20,5 +21,5 @@ export function HourlyCard({ className, iconSrc, time, temp }: HourlyCardProps) 
         <span className="hourly-card__temp">{temp}</span>
       </div>
     </div>
-  );
+  )
 }

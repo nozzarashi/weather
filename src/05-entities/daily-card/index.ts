@@ -1,1 +1,1 @@
-export { DailyCard } from './ui/DailyCard';
+export { DailyCard } from './ui/DailyCard'
