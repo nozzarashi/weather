@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import './dropdownGroup.css';
+import './dropdown-group.css';
 
 interface DropdownGroupProps {
   children: ReactNode;

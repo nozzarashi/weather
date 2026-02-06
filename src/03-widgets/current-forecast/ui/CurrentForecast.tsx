@@ -2,13 +2,13 @@ import './current-forecast.css';
 
 import { MainCard } from '@/05-entities/main-card';
 import { DetailCard } from '@/05-entities/detail-card';
-import { useGetWeatherForecast, useSelectedCityStore } from '@/04-features/search-city';
+import { useWeatherForecast, useSelectedCityStore } from '@/04-features/search-city';
 import { useMetricsStore } from '@/04-features/change-metrics';
 import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants';
 import { useShallow } from 'zustand/shallow';
 
 export function CurrentForecast({ className }: { className?: string }) {
-  const { isPending, data: forecast } = useGetWeatherForecast();
+  const { isPending, data: forecast } = useWeatherForecast();
   const currentData = forecast?.current;
 
   const cityName = useSelectedCityStore((state) => state.cityName);

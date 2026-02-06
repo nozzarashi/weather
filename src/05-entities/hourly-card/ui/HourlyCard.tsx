@@ -1,10 +1,10 @@
 import './hourly-card.css';
 
 interface HourlyCardProps {
-  className?: string;
   iconSrc: string;
   time: string;
   temp: string;
+  className?: string;
 }
 
 export function HourlyCard({ className, iconSrc, time, temp }: HourlyCardProps) {
