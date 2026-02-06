@@ -5,10 +5,10 @@ import { SkeletonOverlay } from '@/06-shared/ui';
 
 import { HourlyCard } from '@/05-entities/hourly-card';
 import { ChangeWeekday, useWeekdayStore, type Weekday } from '@/04-features/change-weekday';
-import { useGetWeatherForecast } from '@/04-features/search-city';
+import { useWeatherForecast } from '@/04-features/search-city';
 import { useMetricsStore } from '@/04-features/change-metrics';
 import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants';
-import { timeFormatter, weekdayFormatter } from '@/06-shared/lib';
+import { format } from 'date-fns';
 
 interface HourlyForecast {
   time: string;
@@ -20,9 +20,8 @@ export function HourlyForecast({ className }: { className: string }) {
   const rootClassName = `hourly-forecast ${className || ''} skeleton-container`.trim();
   const tempUnit = useMetricsStore((state) => state.tempUnit);
 
-  const { isPending, data: forecast } = useGetWeatherForecast();
+  const { isPending, data: forecast } = useWeatherForecast();
   const hourlyData = forecast?.hourly;
-
   const { setWeekday, weekday: currentWeekday } = useWeekdayStore();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -30,10 +29,11 @@ export function HourlyForecast({ className }: { className: string }) {
     const result: HourlyForecast[] = [];
 
     hourlyData?.time?.forEach((time: string, index: number) => {
-      const formattedByWeekday = weekdayFormatter('long').format(new Date(time));
+      console.log(hourlyData?.time);
+      const formattedByWeekday = format(new Date(time), 'EEEE');
 
       if (formattedByWeekday === currentWeekday && Date.now() < new Date(time).getTime()) {
-        const formattedByHours = timeFormatter.format(new Date(time));
+        const formattedByHours = format(new Date(time), 'h:mm a');
 
         result.push({
           time: formattedByHours,
@@ -48,7 +48,7 @@ export function HourlyForecast({ className }: { className: string }) {
 
   useEffect(() => {
     if (hourlyData?.time) {
-      const currentWeekday = Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(new Date(hourlyData.time[0]));
+      const currentWeekday = format(new Date(hourlyData.time[0]), 'EEEE');
       setWeekday(currentWeekday as Weekday);
     }
   }, [hourlyData, setWeekday]);

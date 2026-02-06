@@ -4,10 +4,10 @@ import type { City } from '../model/city';
 interface CityGeocodingResponse {
   results?: City[];
 }
+const CITIES_NUMBER_SHOWN = 5;
 
-async function getCityCoordinates(cityName: string, signal: AbortSignal): Promise<CityGeocodingResponse> {
+async function searchCities(cityName: string, signal: AbortSignal): Promise<CityGeocodingResponse> {
   const url = new URL('https://geocoding-api.open-meteo.com/v1/search');
-  const CITIES_NUMBER_SHOWN = 5;
 
   const params: Record<string, string> = {
     name: cityName,
@@ -27,10 +27,10 @@ async function getCityCoordinates(cityName: string, signal: AbortSignal): Promis
   return response.json();
 }
 
-export function useGetCityCoordinates(cityName: string) {
+export function useSearchCities(cityName: string) {
   return useQuery({
     queryKey: ['city-coordinates', cityName],
-    queryFn: (context) => getCityCoordinates(cityName, context.signal),
+    queryFn: (context) => searchCities(cityName, context.signal),
     staleTime: 5 * 60 * 1000,
     enabled: cityName.length >= 3,
   });

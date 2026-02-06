@@ -3,10 +3,10 @@ import { type ReactNode, useRef, useState } from 'react';
 import './dropdown.css';
 
 interface DropdownProps {
-  onOpenChange?: (set: React.SetStateAction<boolean>) => void;
   trigger: ReactNode;
-  isOpened?: boolean;
   children: ReactNode;
+  isOpened?: boolean;
+  onOpenChange?: (set: React.SetStateAction<boolean>) => void;
 }
 
 export function Dropdown({ isOpened, onOpenChange, trigger, children }: DropdownProps) {

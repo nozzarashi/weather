@@ -2,12 +2,12 @@ import { SkeletonOverlay } from '@/06-shared/ui';
 import './daily-card.css';
 
 interface DailyCardProps {
-  className?: string;
   weekday: string;
-  iconSrc?: string;
   maxTemp: number | string;
   minTemp: number | string;
   isLoading: boolean;
+  className?: string;
+  iconSrc?: string;
 }
 
 export function DailyCard({ className, weekday, iconSrc, maxTemp, minTemp, isLoading }: DailyCardProps) {

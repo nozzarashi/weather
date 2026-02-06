@@ -1,5 +1,5 @@
 import type { ReactNode, MouseEvent } from 'react';
-import './dropdownItem.css';
+import './dropdown-item.css';
 
 interface DropdownItemProps {
   text: string | number;

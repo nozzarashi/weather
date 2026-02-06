@@ -1,13 +1,13 @@
 import { useDebounce } from '@/06-shared/lib';
 import { useEffect, useRef, useState } from 'react';
-import { useGetWeatherForecast } from '../api/getWeatherForecast';
+import { useWeatherForecast } from '../api/use-weather-forecast';
 
 const DEBOUNCE_DELAY = 300;
 
 export function useSearchInput() {
   const [inputValue, setInputValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const { isPending } = useGetWeatherForecast();
+  const { isPending } = useWeatherForecast();
   const debouncedValue = useDebounce(inputValue, DEBOUNCE_DELAY);
 
   const containerRef = useRef<HTMLDivElement>(null);

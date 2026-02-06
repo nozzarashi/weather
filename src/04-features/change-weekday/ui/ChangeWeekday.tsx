@@ -4,18 +4,18 @@ import dropdownIcon from 'assets/icons/icon-dropdown.svg';
 
 import './change-weekday.css';
 import { useMemo, useState } from 'react';
-import { useGetWeatherForecast } from '@/04-features/search-city';
-import { weekdayFormatter } from '@/06-shared/lib';
+import { useWeatherForecast } from '@/04-features/search-city';
+import { format } from 'date-fns';
 
 export function ChangeWeekday() {
   const weekday = useWeekdayStore((state) => state.weekday);
   const setWeekday = useWeekdayStore((state) => state.setWeekday);
-  const { data: forecast } = useGetWeatherForecast();
+  const { data: forecast } = useWeatherForecast();
 
   const weekdays: Set<Weekday> = useMemo(() => {
     if (!forecast?.hourly?.time) return new Set<Weekday>();
 
-    return new Set(forecast?.hourly.time.map((el: string) => weekdayFormatter('long').format(new Date(el)) as Weekday));
+    return new Set(forecast?.hourly.time.map((el: string) => format(new Date(el), 'EEEE') as Weekday));
   }, [forecast]);
 
   const [isOpened, setIsOpened] = useState(false);

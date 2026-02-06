@@ -1,13 +1,13 @@
 import './search-city.css';
 import searchIcon from '@/../assets/icons/icon-search.svg';
 import { Input } from '@/06-shared/ui';
-import { useGetCityCoordinates } from '../api/getCityCoordinates';
+import { useSearchCities } from '../api/use-search-cities';
 import { useSelectedCityStore } from '../model/selected-city-store';
 import { ClipLoader } from 'react-spinners';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMetricsStore } from '@/04-features/change-metrics';
-import { useSearchInput } from '../lib/useSearchInput';
-import { useRecentlySearchedCities } from '../lib/useRecentlySearchedCities';
+import { useSearchInput } from '../lib/use-search-input';
+import { useRecentlySearchedCities } from '../lib/use-recently-searched-cities';
 import type { City } from '../model/city';
 
 export function SearchCity({ className }: { className?: string }) {
@@ -29,7 +29,7 @@ export function SearchCity({ className }: { className?: string }) {
 
   const cityName = useSelectedCityStore((state) => state.cityName);
   const setCityInfo = useSelectedCityStore((state) => state.setCityInfo);
-  const { data: cities } = useGetCityCoordinates(debouncedValue);
+  const { data: cities } = useSearchCities(debouncedValue);
 
   function handleCitySelect(city: City) {
     const { tempUnit, windUnit, precipUnit } = useMetricsStore.getState();

@@ -35,7 +35,7 @@ async function getWeatherForecast(
   return response.json();
 }
 
-export function useGetWeatherForecast() {
+export function useWeatherForecast() {
   const latitude = useSelectedCityStore((state) => state.latitude);
   const longitude = useSelectedCityStore((state) => state.longitude);
   const { tempUnit, windUnit, precipUnit } = useMetricsStore();

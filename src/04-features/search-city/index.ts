@@ -2,5 +2,5 @@ export { SearchCity } from './ui/SearchCity';
 
 export { useSelectedCityStore } from './model/selected-city-store.ts';
 
-export { useGetCityCoordinates } from './api/getCityCoordinates.ts';
-export { useGetWeatherForecast } from './api/getWeatherForecast.ts';
+export { useSearchCities } from './api/use-search-cities.ts';
+export { useWeatherForecast } from './api/use-weather-forecast.ts';
