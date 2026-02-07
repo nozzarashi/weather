@@ -1,5 +1,5 @@
 import { SkeletonOverlay } from '@/06-shared/ui';
-import './daily-card.css';
+import styles from './daily-card.module.css';
 
 interface DailyCardProps {
   weekday: string;
@@ -10,17 +10,15 @@ interface DailyCardProps {
   iconSrc?: string;
 }
 
-export function DailyCard({ className, weekday, iconSrc, maxTemp, minTemp, isLoading }: DailyCardProps) {
-  const rootClassName = `daily-card ${className || ''} skeleton-container`.trim();
-
+export function DailyCard({ className = '', weekday, iconSrc, maxTemp, minTemp, isLoading }: DailyCardProps) {
   return (
-    <div className={rootClassName}>
+    <div className={`${styles.dailyCard} ${className} skeleton-container`}>
       <SkeletonOverlay isLoading={isLoading} />
-      <span className="daily-card__title">{weekday}</span>
-      <img className="daily-card__icon" src={iconSrc} alt="иконка погоды" />
-      <div className="daily-card__temps">
-        <span className="daily-card__temps-max">{maxTemp}</span>
-        <span className="daily-card__temps-min">{minTemp}</span>
+      <span className={styles.title}>{weekday}</span>
+      <img className={styles.icon} src={iconSrc} alt="иконка погоды" />
+      <div className={styles.temps}>
+        <span>{maxTemp}</span>
+        <span>{minTemp}</span>
       </div>
     </div>
   );

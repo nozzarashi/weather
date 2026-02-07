@@ -1,5 +1,5 @@
 import type { ReactNode, MouseEvent } from 'react';
-import './dropdown-item.css';
+import styles from './dropdown-item.module.css';
 
 interface DropdownItemProps {
   text: string | number;
@@ -10,8 +10,8 @@ interface DropdownItemProps {
 
 export function DropdownItem({ selected, text, icon, onClick }: DropdownItemProps) {
   return (
-    <div onClick={onClick} className={`dropdown-item ${selected ? 'dropdown-item--selected' : ''}`}>
-      <span className="dropdown-item__text">{text}</span>
+    <div onClick={onClick} className={`${styles.item} ${selected ? `${styles.itemSelected}` : ''}`}>
+      <span>{text}</span>
       {selected && icon}
     </div>
   );

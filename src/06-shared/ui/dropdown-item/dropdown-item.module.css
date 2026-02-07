@@ -1,4 +1,4 @@
-.dropdown-item {
+.item {
   display: flex;
   justify-content: space-between;
   width: 95%;
@@ -8,10 +8,10 @@
   border-radius: 8px;
 }
 
-.dropdown-item:hover {
+.item:hover {
   background-color: var(--neutral-700);
 }
 
-.dropdown-item--selected {
+.itemSelected {
   background-color: var(--neutral-700);
 }

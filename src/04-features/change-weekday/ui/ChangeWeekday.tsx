@@ -2,7 +2,6 @@ import { Button, Dropdown, DropdownItem } from '@/06-shared/ui';
 import { useWeekdayStore, type Weekday } from '../model/weekday-store';
 import dropdownIcon from 'assets/icons/icon-dropdown.svg';
 
-import './change-weekday.css';
 import { useMemo, useState } from 'react';
 import { useWeatherForecast } from '@/04-features/search-city';
 import { format } from 'date-fns';

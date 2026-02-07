@@ -1,28 +1,27 @@
 import { SkeletonOverlay } from '@/06-shared/ui';
-import './main-card.css';
+import styles from './main-card.module.css';
 
 interface MainCardProps {
-  className: string;
   location: string;
   date: string;
   iconSrc: string;
   temperature: string;
   isLoading: boolean;
+  className?: string;
 }
 
-export function MainCard({ className, location, date, iconSrc, temperature, isLoading }: MainCardProps) {
+export function MainCard({ className = '', location, date, iconSrc, temperature, isLoading }: MainCardProps) {
   return (
     <div className={`${className} skeleton-container`}>
-      <div className="main-card__wrapper">
+      <div className={styles.wrapper}>
         <SkeletonOverlay isLoading={isLoading} />
-        <div className="main-card__block">
-          <h2 className="main-card__title">{location}</h2>
-          <span className="main-card__date">{date}</span>
+        <div className={styles.block}>
+          <h2 className={styles.title}>{location}</h2>
+          <span className={styles.date}>{date}</span>
         </div>
-        <div className="main-card__block">
-          <img className="main-card__icon" src={iconSrc} alt="Иконка погоды" />
-
-          <span className="main-card__temperature">{temperature}</span>
+        <div className={styles.block}>
+          <img className={styles.icon} src={iconSrc} alt="Иконка погоды" />
+          <span className={styles.temperature}>{temperature}</span>
         </div>
       </div>
     </div>

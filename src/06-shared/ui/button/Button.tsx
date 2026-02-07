@@ -1,4 +1,4 @@
-import './button.css';
+import styles from './button.module.css';
 
 interface ButtonProps {
   text: string;
@@ -9,9 +9,9 @@ interface ButtonProps {
   onclick?: () => void;
 }
 
-export function Button({ className, text, type = 'submit', beforeIcon, afterIcon, onclick }: ButtonProps) {
+export function Button({ className = '', text, type = 'submit', beforeIcon, afterIcon, onclick }: ButtonProps) {
   return (
-    <button type={type} onClick={onclick} className={`button ${className}`}>
+    <button type={type} onClick={onclick} className={`${styles.button} ${className}`}>
       {beforeIcon}
       <span>{text}</span>
       {afterIcon}
