@@ -1,14 +1,14 @@
-import './hourly-forecast.css';
 import { useEffect, useMemo, useRef } from 'react';
 
-import { SkeletonOverlay } from '@/06-shared/ui';
-
-import { HourlyCard } from '@/05-entities/hourly-card';
 import { ChangeWeekday, useWeekdayStore, type Weekday } from '@/04-features/change-weekday';
 import { useWeatherForecast } from '@/04-features/search-city';
 import { useMetricsStore } from '@/04-features/change-metrics';
+import { HourlyCard } from '@/05-entities/hourly-card';
 import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants';
+import { SkeletonOverlay } from '@/06-shared/ui';
 import { format } from 'date-fns';
+
+import styles from './hourly-forecast.module.css';
 
 interface HourlyForecast {
   time: string;
@@ -16,8 +16,7 @@ interface HourlyForecast {
   weatherCode: number;
 }
 
-export function HourlyForecast({ className }: { className: string }) {
-  const rootClassName = `hourly-forecast ${className || ''} skeleton-container`.trim();
+export function HourlyForecast({ className = '' }: { className?: string }) {
   const tempUnit = useMetricsStore((state) => state.tempUnit);
 
   const { isPending, data: forecast } = useWeatherForecast();
@@ -29,7 +28,6 @@ export function HourlyForecast({ className }: { className: string }) {
     const result: HourlyForecast[] = [];
 
     hourlyData?.time?.forEach((time: string, index: number) => {
-      console.log(hourlyData?.time);
       const formattedByWeekday = format(new Date(time), 'EEEE');
 
       if (formattedByWeekday === currentWeekday && Date.now() < new Date(time).getTime()) {
@@ -59,14 +57,14 @@ export function HourlyForecast({ className }: { className: string }) {
   }, [currentWeekday]);
 
   return (
-    <div className={rootClassName}>
+    <div className={`${styles.hourlyForecast} ${className} skeleton-container`}>
       <SkeletonOverlay isLoading={isPending} />
 
-      <div className="hourly-forecast__header">
-        <h3 className="hourly-forecast-title">Hourly Forecast</h3>
+      <div className={styles.header}>
+        <h3 className={styles.title}>Hourly Forecast</h3>
         {forecast && <ChangeWeekday />}
       </div>
-      <div ref={ref} className="hourly-forecast__body">
+      <div ref={ref} className={styles.body}>
         {weather?.map((el: HourlyForecast) => (
           <HourlyCard
             key={el.time}

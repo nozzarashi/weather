@@ -1,4 +1,4 @@
-.main-card__wrapper {
+.wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -8,12 +8,7 @@
   padding: 74px 12px;
 }
 
-.main-card {
-  display: flex;
-  align-items: center;
-}
-
-.main-card__block {
+.block {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -25,21 +20,21 @@
   }
 }
 
-.main-card__icon {
+.icon {
   width: 120px;
   height: 115px;
 }
 
-.main-card__title {
+.title {
   font-size: 24px;
   font-weight: 600;
 }
 
-.main-card__temperature {
+.temperature {
   font-size: 64px;
   font-weight: 700;
 }
 
-.main-card__date {
+.date {
   font-weight: 500;
 }

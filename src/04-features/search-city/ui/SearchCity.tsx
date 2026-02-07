@@ -1,17 +1,17 @@
-import './search-city.css';
 import searchIcon from '@/../assets/icons/icon-search.svg';
-import { Input } from '@/06-shared/ui';
 import { useSearchCities } from '../api/use-search-cities';
 import { useSelectedCityStore } from '../model/selected-city-store';
 import { ClipLoader } from 'react-spinners';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMetricsStore } from '@/04-features/change-metrics';
+import { Input } from '@/06-shared/ui';
 import { useSearchInput } from '../lib/use-search-input';
 import { useRecentlySearchedCities } from '../lib/use-recently-searched-cities';
 import type { City } from '../model/city';
 
-export function SearchCity({ className }: { className?: string }) {
-  const rootClassName = `search-city ${className || ''}`.trim();
+import styles from './search-city.module.css';
+
+export function SearchCity() {
   const queryClient = useQueryClient();
 
   const {
@@ -53,16 +53,15 @@ export function SearchCity({ className }: { className?: string }) {
       onSubmit={(event) => {
         event.preventDefault();
       }}
-      className={rootClassName}
     >
-      <div className="search-city__input-wrapper">
+      <div className={styles.wrapper}>
         <div
           tabIndex={0}
           onBlur={(event) => {
             if (!containerRef.current?.contains(event.relatedTarget)) setIsFocused(false);
           }}
           ref={containerRef}
-          className="search-city__input-container"
+          className={styles.container}
         >
           <Input
             value={inputValue}
@@ -73,20 +72,18 @@ export function SearchCity({ className }: { className?: string }) {
               setIsFocused(true);
             }}
             startIcon={searchIcon}
-            wrapperClassName="search-city__wrapper"
-            inputClassName="search-city__input"
             placeholder={isFocused ? '' : cityName}
           />
 
           {isFocused && (
-            <div className="search-city__results">
+            <div className={styles.results}>
               {isPending ? (
-                <div className="search-city__search-progress">
+                <div className={styles.searchProgress}>
                   <ClipLoader size={18} color="#aeaeb7" />
                   <span>Search in Progress</span>
                 </div>
               ) : cities?.results ? (
-                <ul className="search-city__results-list">
+                <ul className={styles.resultsList}>
                   {cities?.results.map((city) => {
                     return (
                       <li
@@ -94,11 +91,11 @@ export function SearchCity({ className }: { className?: string }) {
                           event.stopPropagation();
                           handleCitySelect(city);
                         }}
-                        className="search-city__results-item"
+                        className={styles.resultsItem}
                         key={city.id}
                       >
-                        <p className="search-city__results-city">{city.name}</p>
-                        <p className="search-city__results-region">
+                        <p className={styles.resultsCity}>{city.name}</p>
+                        <p className={styles.resultsRegion}>
                           {city.admin1}
                           {city.admin2 ? ', ' + city.admin2 : ''}
                         </p>
@@ -108,11 +105,11 @@ export function SearchCity({ className }: { className?: string }) {
                 </ul>
               ) : (
                 <>
-                  <div className="search-city__current-city">Текущее: {cityName}</div>
-                  <ul className="search-city__searched-cities-list">
+                  <div className={styles.currentCity}>Текущее: {cityName}</div>
+                  <ul className={styles.searchedCitiesList}>
                     {searchedCities.map((city) => (
                       <li
-                        className="search-city__searched-cities-item"
+                        className={styles.searchedCitiesItem}
                         onClick={() => {
                           handleCitySelect(city);
                         }}

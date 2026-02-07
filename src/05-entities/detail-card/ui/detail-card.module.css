@@ -1,4 +1,4 @@
-.detail-card {
+.detailCard {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,13 +9,13 @@
   gap: 24px;
 }
 
-.detail-card__title {
+.title {
   font-size: 16px;
   font-weight: 500;
   color: var(--neutral-300);
 }
 
-.detail-card__value {
+.value {
   font-size: 26px;
   font-weight: 500;
 }

@@ -1,5 +1,3 @@
-import './current-forecast.css';
-
 import { MainCard } from '@/05-entities/main-card';
 import { DetailCard } from '@/05-entities/detail-card';
 import { useWeatherForecast, useSelectedCityStore } from '@/04-features/search-city';
@@ -7,7 +5,9 @@ import { useMetricsStore } from '@/04-features/change-metrics';
 import { TEMP_UNIT_MAPPING, ICON_CODES } from '@/06-shared/constants';
 import { useShallow } from 'zustand/shallow';
 
-export function CurrentForecast({ className }: { className?: string }) {
+import styles from './current-forecast.module.css';
+
+export function CurrentForecast({ className = '' }: { className?: string }) {
   const { isPending, data: forecast } = useWeatherForecast();
   const currentData = forecast?.current;
 
@@ -39,28 +39,14 @@ export function CurrentForecast({ className }: { className?: string }) {
           day: 'numeric',
           year: 'numeric',
         }).format(forecast?.time)}
-        className="current-forecast__main-card"
         iconSrc={icon}
         temperature={currentTemp}
       />
-      <div className="current-forecast__details">
-        <DetailCard
-          isLoading={isPending}
-          className="current-forecast__detail-card"
-          title="Feels Like"
-          value={apparentTemp}
-        />
-
-        <DetailCard isLoading={isPending} className="current-forecast__detail-card" title="Humidity" value={humidity} />
-
-        <DetailCard isLoading={isPending} className="current-forecast__detail-card" title="Wind" value={wind} />
-
-        <DetailCard
-          isLoading={isPending}
-          className="current-forecast__detail-card"
-          title="Precipitation"
-          value={precipitation}
-        />
+      <div className={styles.details}>
+        <DetailCard isLoading={isPending} title="Feels Like" value={apparentTemp} />
+        <DetailCard isLoading={isPending} title="Humidity" value={humidity} />
+        <DetailCard isLoading={isPending} title="Wind" value={wind} />
+        <DetailCard isLoading={isPending} title="Precipitation" value={precipitation} />
       </div>
     </div>
   );

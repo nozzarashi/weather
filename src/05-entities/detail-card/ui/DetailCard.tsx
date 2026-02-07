@@ -1,21 +1,19 @@
 import { SkeletonOverlay } from '@/06-shared/ui';
-import './detail-card.css';
+import styles from './detail-card.module.css';
 
 interface DetailCardProps {
   title: string;
   value: string;
-  className: string;
   isLoading: boolean;
+  className?: string;
 }
 
-export function DetailCard({ title, value, className, isLoading }: DetailCardProps) {
-  const rootClassName = `detail-card skeleton-container ${className || ''}`.trim();
-
+export function DetailCard({ title, value, className = '', isLoading }: DetailCardProps) {
   return (
-    <div className={rootClassName}>
+    <div className={`${styles.detailCard} ${className} skeleton-container`}>
       <SkeletonOverlay isLoading={isLoading} />
-      <span className="detail-card__title">{title}</span>
-      <span className="detail-card__value">{value}</span>
+      <span className={styles.title}>{title}</span>
+      <span className={styles.value}>{value}</span>
     </div>
   );
 }

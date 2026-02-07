@@ -1,7 +1,5 @@
 import { Dropdown, DropdownGroup, DropdownItem, Button } from '@/06-shared/ui';
 
-import './change-metrics.css';
-
 import iconUnits from 'assets/icons/icon-units.svg';
 import dropdownIcon from 'assets/icons/icon-dropdown.svg';
 import checkmarkIcon from 'assets/icons/icon-checkmark.svg';
@@ -43,7 +41,7 @@ export function ChangeMetrics() {
     <Dropdown
       trigger={<Button beforeIcon={<img src={iconUnits} />} afterIcon={<img src={dropdownIcon} />} text="Units" />}
     >
-      <span className="metrics-title">Switch to Imperial</span>
+      <span>Switch to Imperial</span>
 
       <DropdownGroup title="Temperature">
         <DropdownItem

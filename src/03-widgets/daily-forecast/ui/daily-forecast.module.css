@@ -1,22 +1,17 @@
-.daily-forecast {
+.dailyForecast {
   display: flex;
   flex-direction: column;
 }
 
-.daily-forecast__title {
+.title {
   text-align: start;
   font-size: 18px;
   font-weight: 600;
   padding-bottom: 24px;
 }
 
-.daily-forecast__body {
+.body {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 14px;
-}
-
-.daily-forecast__card-icon {
-  width: 80px;
-  height: 80px;
 }

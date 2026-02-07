@@ -1,6 +1,6 @@
 interface LogoProps {
-  className: string;
   icon: React.ReactNode;
+  className?: string;
 }
 
 export function Logo({ className, icon }: LogoProps) {

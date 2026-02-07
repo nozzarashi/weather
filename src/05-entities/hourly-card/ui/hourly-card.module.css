@@ -1,4 +1,4 @@
-.hourly-card {
+.hourlyCard {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -8,22 +8,22 @@
   border: 1px solid var(--neutral-300-transp);
 }
 
-.hourly-card__icon {
+.icon {
   width: 60px;
   height: 56px;
 }
 
-.hourly-card__temp {
+.temperature {
   font-weight: 500;
 }
 
-.hourly-card__left {
+.left {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.hourly-card__time {
+.time {
   font-size: 18px;
   font-weight: 600;
 }

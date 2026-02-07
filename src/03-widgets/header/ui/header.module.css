@@ -2,12 +2,8 @@
   padding: 24px 0;
 }
 
-.header__container {
+.container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.header__settings-container {
-  position: relative;
 }

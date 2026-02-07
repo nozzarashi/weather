@@ -1,6 +1,5 @@
 import { type ReactNode, useRef, useState } from 'react';
-
-import './dropdown.css';
+import styles from './dropdown.module.css';
 
 interface DropdownProps {
   trigger: ReactNode;
@@ -36,10 +35,10 @@ export function Dropdown({ isOpened, onOpenChange, trigger, children }: Dropdown
         if (!dropdownRef.current?.contains(event.relatedTarget)) handleClose();
       }}
       ref={dropdownRef}
-      className="dropdown"
+      className={styles.dropdown}
     >
       <div onClick={handleToggle}>{trigger}</div>
-      {actualOpenedState && <div className="dropdown__content">{children}</div>}
+      {actualOpenedState && <div className={styles.content}>{children}</div>}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { type ChangeEvent } from 'react';
+import styles from './input.module.css';
 
 interface InputProps {
   placeholder: string;
@@ -11,24 +12,15 @@ interface InputProps {
   startIcon?: string;
 }
 
-export function Input({
-  inputClassName = '',
-  wrapperClassName = '',
-  placeholder,
-  inputType = 'text',
-  onChange,
-  onFocus,
-  startIcon,
-  value,
-}: InputProps) {
+export function Input({ placeholder, inputType = 'text', onChange, onFocus, startIcon, value }: InputProps) {
   return (
-    <div className={wrapperClassName}>
+    <div className={styles.wrapper}>
       <img src={startIcon} alt="Иконка поиска" />
       <input
         value={value}
         onChange={onChange}
         onFocus={onFocus}
-        className={inputClassName}
+        className={styles.input}
         placeholder={placeholder}
         type={inputType}
       />
